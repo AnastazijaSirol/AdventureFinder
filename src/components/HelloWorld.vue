@@ -5,8 +5,8 @@
     <h1 class="naslov">AdventureFinder</h1>
     <h2 class="poruka"><b>Pronađite destinacije u kojima možete doživjeti avanture po vlastitom izboru i podijelite svoja iskustva!</b></h2>
     <div class="autentifikacija">
-      <button class="prijava">Prijava</button> /* Tu će trebat stavit router */
-      <button class="registracija">Registracija</button> /* Tu će trebat stavit router */
+      <button class="prijava" @click="prijava">Prijava</button>
+      <button class="registracija" @click="registracija">Registracija</button>
     </div>
   </div>
 
@@ -15,7 +15,15 @@
 <script>
 
 export default {
-  name: 'PocetnaStranica'
+  name: 'HelloWorld',
+  methods: {
+    prijava() {
+      this.$router.push('prijava_stranica');
+    },
+    registracija() {
+      this.$router.push('/registracija');
+    }
+  }
 }
 
 </script>
@@ -32,6 +40,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  background-position: center;
 }
 
 .naslov {
@@ -61,8 +70,8 @@ export default {
   background-color: #1B1C1B;
   color: #D9D9D9;
   font-size: 1.5em;
-  width: 200px; 
-  height: 40px; 
+  width: 150px; 
+  height: 30px; 
   display: flex;
   justify-content: center;
   align-items: center;
