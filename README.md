@@ -1,24 +1,21 @@
-# adventurefinder
+# AdventureFinder
 
-## Project setup
-```
-npm install
-```
+## Grupa korisnika
+Aplikacija namijenjena avanturistima koji žele pronaći destinacije u kojima mogu isprobati različite aktivnosti u prirodi. 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Funkcionalnosti
+### Korisnici:
+1. Registracija/Prijava
+2. Odabir aktivnosti
+3. Pregled destinacija
+4. Dodavanje destinacija
+5. Dodavanje recenzija
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Administrator 
+1. Registracija/Prijava
+2. Odabir aktivnosti
+3. Pregled destinacija
+4. Dodavanje destinacija
+5. Dodavanje recenzija
+6. Brisanje destinacija
+7. Brisanje recenzija
