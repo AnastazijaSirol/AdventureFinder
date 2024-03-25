@@ -3,11 +3,12 @@
 ### Fakultet informatike u Puli: 
 [https://fipu.unipu.hr/](https://fipu.unipu.hr/)
 
-### Kolegij: Programsko inženjerstvo
+### Kolegij: 
+#### Programsko inženjerstvo:
 [ntakovic.unipu.hr/pi](ntakovic.unipu.hr/pi)
 
 ### Mentor: 
-doc. dr. sc. Nikola Tanković
+#### doc. dr. sc. Nikola Tanković
 [ntankovic.unipu.hr](ntakovic.unipu.hr)
 
 ### Funkcionalnosti
