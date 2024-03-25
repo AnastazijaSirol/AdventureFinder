@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="naslov">AdventureFinder</h1>
     <router-view/>
   </div>
 </template>
@@ -19,4 +20,9 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.naslov {
+  color: #D9D9D9;
+}
+
 </style>
