@@ -4,7 +4,8 @@
 [https://fipu.unipu.hr/](https://fipu.unipu.hr/)
 
 ### Kolegij: 
-#### Programsko inženjerstvo:[ntakovic.unipu.hr/pi](ntakovic.unipu.hr/pi)
+#### Programsko inženjerstvo:
+[ntakovic.unipu.hr/pi](ntakovic.unipu.hr/pi)
 
 ### Mentor: 
 #### doc. dr. sc. Nikola Tanković
