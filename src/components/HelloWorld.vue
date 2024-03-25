@@ -5,8 +5,8 @@
     <h1 class="naslov">AdventureFinder</h1>
     <h2 class="poruka"><b>Pronađite destinacije u kojima možete doživjeti avanture po vlastitom izboru i podijelite svoja iskustva!</b></h2>
     <div class="autentifikacija">
-      <a href="pocetna_stranica.vue" class="prijava">Prijava</a>
-      <a href="pocetna_stranica.vue" class="registracija">Registracija</a>
+      <button class="prijava">Prijava</button> /* Tu će trebat stavit router */
+      <button class="registracija">Registracija</button> /* Tu će trebat stavit router */
     </div>
   </div>
 
@@ -61,8 +61,8 @@ export default {
   background-color: #1B1C1B;
   color: #D9D9D9;
   font-size: 1.5em;
-  width: 150px; 
-  height: 20px; 
+  width: 200px; 
+  height: 40px; 
   display: flex;
   justify-content: center;
   align-items: center;
