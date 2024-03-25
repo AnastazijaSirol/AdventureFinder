@@ -1,13 +1,17 @@
 # AdventureFinder
 
-## Fakultet informatike u Puli: 
+### Fakultet informatike u Puli: 
+[https://fipu.unipu.hr/](https://fipu.unipu.hr/)
 
-## Kolegij: Programsko inženjerstvo
+### Kolegij: Programsko inženjerstvo
+[ntakovic.unipu.hr/pi](ntakovic.unipu.hr/pi)
 
-## Mentor: doc. dr. sc. Nikola Tanković
+### Mentor: 
+doc. dr. sc. Nikola Tanković
+[ntankovic.unipu.hr](ntakovic.unipu.hr)
 
-## Funkcionalnosti
-### Korisnici:
+### Funkcionalnosti
+#### Korisnici:
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled destinacija
@@ -15,7 +19,7 @@
 5. Dodavanje destinacija
 6. Dodavanje recenzija
 
-### Administrator:
+#### Administrator:
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled destinacija
@@ -25,4 +29,5 @@
 7. Brisanje destinacija
 8. Brisanje recenzija
 
-## Prototip:
+### Prototip:
+[link na prototip](https://www.figma.com/file/RSFeQReWAodcNinftAICm8/AdventureFinder?type=design&node-id=1%3A2&mode=design&t=MVWFohIzRAXBsqEF-1)
