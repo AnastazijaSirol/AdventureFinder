@@ -8,14 +8,16 @@ Aplikacija namijenjena avanturistima koji žele pronaći destinacije u kojima mo
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled destinacija
-4. Dodavanje destinacija
-5. Dodavanje recenzija
+4. Filtriranje destinacija
+5. Dodavanje destinacija
+6. Dodavanje recenzija
 
-### Administrator 
+### Administrator:
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled destinacija
-4. Dodavanje destinacija
-5. Dodavanje recenzija
-6. Brisanje destinacija
-7. Brisanje recenzija
+4. Filtriranje destinacija
+5. Dodavanje destinacija
+6. Dodavanje recenzija
+7. Brisanje destinacija
+8. Brisanje recenzija
