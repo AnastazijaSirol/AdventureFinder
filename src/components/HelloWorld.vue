@@ -21,7 +21,7 @@ export default {
       this.$router.push('prijava_stranica');
     },
     registracija() {
-      this.$router.push('/registracija');
+      this.$router.push('registracija_stranica');
     }
   }
 }
