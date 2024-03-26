@@ -19,14 +19,6 @@
 <script>
 export default {
   name: 'App',
-  data() {
-    return {
-      korisnickoIme: '',
-      email: '',
-      lozinka: '',
-      potvrdaLozinke: ''
-    };
-  },
   methods: {
     usmjeri_pocetna() {
       this.$router.push('/');
@@ -34,6 +26,19 @@ export default {
     usmjeri_prijava() {
       this.$router.push('prijava_stranica');
     },
+    provjeriRegistraciju() {
+      if (!this.korisnickoIme || !this.email || !this.lozinka || !this.potvrdaLozinke) {
+        alert("Sva polja moraju biti ispunjena.");
+        return;
+      } 
+      if (this.lozinka.length < 6) {
+        alert("Lozinka mora imati barem 6 znakova.");
+        return;
+      } 
+      if (this.lozinka !== this.potvrdaLozinke) {
+        alert("Lozinka i potvrda lozinke nisu iste.");
+      }
+    }
   }
 };
 </script>
