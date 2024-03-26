@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-/* Stilovi */
+
 html, body {
   background-color: #1B1C1B;
 }
