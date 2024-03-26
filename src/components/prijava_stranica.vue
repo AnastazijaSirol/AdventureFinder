@@ -22,7 +22,7 @@ export default {
       this.$router.push('/');
     },
     usmjeri_registracija() {
-      this.$router.push('/registracija');
+      this.$router.push('registracija_stranica');
     }
   }
 };
