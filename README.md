@@ -30,7 +30,7 @@
 3. Pregled najbolje ocijenjene destinacije
 4. Pregled grafova ocijenjenosti destinacija za aktivnosti
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
-6. Filtriranje destinacija i dodavnje načina filtriranja
+6. Filtriranje destinacija i dodavanje načina filtriranja
 7. Označavanje destinacija favorita
 8. Pregled korisničkog računa i destinacija favorita
 9. Pregled, dodavanje, brisanje i uređivanje recenzija
