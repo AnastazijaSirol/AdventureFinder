@@ -16,11 +16,11 @@
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled najbolje ocijenjene destinacije
-4. Pregled grafa ocjenjenosti destinacija za aktivnosti
+4. Pregled grafova ocijenjenosti destinacija za aktivnosti
 5. Pregled i dodavanje destinacija
 6. Filtriranje destinacija
 7. Označavanje destinacija favorita
-8. Pregled korisničkog računa i favorita
+8. Pregled korisničkog računa i destinacija favorita
 9. Pregled i dodavanje recenzija
 10. Filtriranje recenzija
 
@@ -28,15 +28,14 @@
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled najbolje ocijenjene destinacije
-4. Pregled grafa ocijenjenosti destinacija za aktivnosti
+4. Pregled grafova ocijenjenosti destinacija za aktivnosti
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Filtriranje destinacija i dodavnje načina filtriranja
 7. Označavanje destinacija favorita
-8. Pregled korisničkog računa i favorita
+8. Pregled korisničkog računa i destinacija favorita
 9. Pregled, dodavanje, brisanje i uređivanje recenzija
 10. Filtriranje recenzija i dodavanje načina filtriranja
 11. Pregled broja i liste registriranih korisnika
-12. Pregled broja i liste trenutno aktivnih korisnika
 
 ### Prototip:
 [link na prototip](https://www.figma.com/file/RSFeQReWAodcNinftAICm8/AdventureFinder?type=design&node-id=1%3A2&mode=design&t=MVWFohIzRAXBsqEF-1)
