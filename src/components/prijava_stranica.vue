@@ -9,7 +9,7 @@
         <button @click="usmjeri_aktivnosti">Prijava</button>
       </form>
     </div>
-    <p class="poruka">Već imate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
+    <p class="poruka">Nemate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
     <router-view/>
   </div>
 </template>
