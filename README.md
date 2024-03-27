@@ -25,7 +25,7 @@
 10. Filtriranje recenzija
 
 #### Administrator:
-1. Registracija/Prijava
+1. Prijava
 2. Odabir aktivnosti
 3. Pregled najbolje ocijenjene destinacije
 4. Pregled grafova ocijenjenosti destinacija
