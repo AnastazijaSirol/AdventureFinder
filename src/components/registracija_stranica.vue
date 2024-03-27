@@ -8,7 +8,7 @@
         <input type="email" placeholder="E-pošta" v-model="email" />
         <input type="password" placeholder="Lozinka" v-model="lozinka" />
         <input type="password" placeholder="Potvrdi lozinku" v-model="potvrdaLozinke" />
-        <button @click="provjeriRegistraciju">Registracija</button>
+        <button @click="usmjeri_aktivnosti">Registracija</button>
       </form>
     </div>
     <p class="poruka">Već imate korisnički račun? <b class="preporuka" @click="usmjeri_prijava">Prijavi se.</b></p>
@@ -25,19 +25,6 @@ export default {
     },
     usmjeri_prijava() {
       this.$router.push('prijava_stranica');
-    },
-    provjeriRegistraciju() {
-      if (!this.korisnickoIme || !this.email || !this.lozinka || !this.potvrdaLozinke) {
-        alert("Sva polja moraju biti ispunjena.");
-        return;
-      } 
-      if (this.lozinka.length < 6) {
-        alert("Lozinka mora imati barem 6 znakova.");
-        return;
-      } 
-      if (this.lozinka !== this.potvrdaLozinke) {
-        alert("Lozinka i potvrda lozinke nisu iste.");
-      }
     }
   }
 };
