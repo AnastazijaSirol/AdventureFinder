@@ -16,7 +16,7 @@
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled najbolje ocijenjene destinacije
-4. Pregled grafova ocijenjenosti destinacija za aktivnosti
+4. Pregled grafova ocijenjenosti destinacija
 5. Pregled i dodavanje destinacija
 6. Filtriranje destinacija
 7. Označavanje destinacija favorita
@@ -28,13 +28,13 @@
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled najbolje ocijenjene destinacije
-4. Pregled grafova ocijenjenosti destinacija za aktivnosti
+4. Pregled grafova ocijenjenosti destinacija
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
-6. Filtriranje destinacija i dodavanje načina filtriranja
+6. Filtriranje destinacija
 7. Označavanje destinacija favorita
 8. Pregled korisničkog računa i destinacija favorita
-9. Pregled, dodavanje, brisanje i uređivanje recenzija
-10. Filtriranje recenzija i dodavanje načina filtriranja
+9. Pregled, dodavanje i brisanje recenzija
+10. Filtriranje recenzija
 11. Pregled broja i liste registriranih korisnika
 
 ### Prototip:
