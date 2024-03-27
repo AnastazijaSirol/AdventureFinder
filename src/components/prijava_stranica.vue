@@ -10,6 +10,7 @@
       </form>
     </div>
     <p class="poruka">Nemate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
+    <p class="preporuka" @click="usmjeri_administrator"><b>Prijava kao administrator</b></p>
     <router-view/>
   </div>
 </template>
@@ -23,6 +24,9 @@ export default {
     },
     usmjeri_registracija() {
       this.$router.push('registracija_stranica');
+    }
+    usmjeri_administrator() {
+      this.$router.push('prijava_administrator');
     }
   }
 };
