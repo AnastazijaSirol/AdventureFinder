@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  name: 'HelloWorld',
+  name: 'pocetna_stranica',
   methods: {
     prijava() {
       this.$router.push('prijava_stranica');
