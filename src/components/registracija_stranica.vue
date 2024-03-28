@@ -23,6 +23,9 @@ export default {
     usmjeri_pocetna() {
       this.$router.push('/');
     },
+    usmjeri_aktivnosti() {
+        this.$router.push('aktivnosti_stranica');
+    },
     usmjeri_prijava() {
       this.$router.push('prijava_stranica');
     }
