@@ -11,6 +11,7 @@
             <option value="ribolov">Ribolov u slatkim vodama</option>
             <option value="spilje">Istraživanje špilja</option>
             <option value="prezivljavanje">Preživaljvanje u divljini</option>
+            <option value="paraglajder">Letenje paraglajderom</option>
         </select>
     </div>
 </template>
@@ -21,6 +22,30 @@ export default {
   methods: {
     usmjeri_pocetna() {
         this.$router.push('/');
+    },
+    usmjeri_aktivnost() {
+      switch(this.aktivnosti) {
+        case 'planinarenje':
+          this.$router.push('aktivnosti_stranica');
+          break;
+        case 'padobran':
+          this.$router.push('aktivnosti_stranica');
+          break;
+        case 'ribolov':
+          this.$router.push('aktivnosti_stranica');
+          break;
+        case 'spilje':
+          this.$router.push('aktivnosti_stranica');
+          break;
+        case 'prezivljavanje':
+          this.$router.push('aktivnosti_stranica');
+          break;
+        case 'paraglajder':
+            this.$router.push('aktivnosti_stranica');
+            break;
+        default:
+          break;
+      }
     }
   }
 };
@@ -62,6 +87,18 @@ html, body {
     background-color: #2C2D2C;
     color: #D9D9D9;
     border: none;
+}
+
+.usmjeri_aktivnosti {
+  position: absolute;
+  padding: 10px 20px;
+  background-color: #D9D9D9;
+  color: #1B1C1B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  right: 530px;
+  top: 183px;
 }
 
 </style>
