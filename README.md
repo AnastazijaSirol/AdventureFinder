@@ -15,7 +15,7 @@
 #### Korisnici:
 1. Registracija/Prijava
 2. Odabir aktivnosti
-3. Pregled najbolje ocijenjene destinacije
+3. Pregled najposjećenijih destinacija
 4. Pregled grafova ocijenjenosti destinacija
 5. Pregled i dodavanje destinacija
 6. Filtriranje destinacija
@@ -27,7 +27,7 @@
 #### Administrator:
 1. Prijava
 2. Odabir aktivnosti
-3. Pregled najbolje ocijenjene destinacije
+3. Pregled najposjećenijih destinacija
 4. Pregled grafova ocijenjenosti destinacija
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Filtriranje destinacija
