@@ -19,7 +19,7 @@
 4. Pregled grafova ocijenjenosti destinacija
 5. Pregled i dodavanje destinacija
 6. Filtriranje destinacija
-7. Označavanje destinacija favorita
+7. Označavanje posjećenih destinacija
 8. Pregled korisničkog računa i destinacija favorita
 9. Pregled i dodavanje recenzija
 10. Filtriranje recenzija
@@ -31,7 +31,7 @@
 4. Pregled grafova ocijenjenosti destinacija
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Filtriranje destinacija
-7. Označavanje destinacija favorita
+7. Označavanje posjećenih destinacija
 8. Pregled korisničkog računa i destinacija favorita
 9. Pregled, dodavanje i brisanje recenzija
 10. Filtriranje recenzija
