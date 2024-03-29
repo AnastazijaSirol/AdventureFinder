@@ -12,6 +12,7 @@
             <option value="spilje">Istraživanje špilja</option>
             <option value="prezivljavanje">Preživaljvanje u divljini</option>
             <option value="paraglajder">Letenje paraglajderom</option>
+            <option value="kampiranje">Kampiranje</option>
         </select>
     </div>
 </template>
@@ -43,6 +44,9 @@ export default {
         case 'paraglajder':
             this.$router.push('aktivnosti_stranica');
             break;
+          case 'kampiranje':
+              this.$router.push('aktivnosti_stranica');
+              break;
         default:
           break;
       }
