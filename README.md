@@ -20,7 +20,7 @@
 5. Pregled i dodavanje destinacija
 6. Filtriranje destinacija
 7. Označavanje posjećenih destinacija
-8. Pregled korisničkog računa i destinacija favorita
+8. Pregled korisničkog računa i posjećenih destinacija
 9. Pregled i dodavanje recenzija
 10. Filtriranje recenzija
 
@@ -32,7 +32,7 @@
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Filtriranje destinacija
 7. Označavanje posjećenih destinacija
-8. Pregled korisničkog računa i destinacija favorita
+8. Pregled korisničkog računa i posjećenih destinacija
 9. Pregled, dodavanje i brisanje recenzija
 10. Filtriranje recenzija
 11. Pregled broja i liste registriranih korisnika
