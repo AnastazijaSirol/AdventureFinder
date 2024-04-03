@@ -27,7 +27,7 @@ export default {
     },
     usmjeri_registracija() {
       this.$router.push('registracija_stranica');
-    }
+    },
     usmjeri_administrator() {
       this.$router.push('prijava_administrator');
     }
