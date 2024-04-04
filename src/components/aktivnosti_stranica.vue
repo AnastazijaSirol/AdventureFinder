@@ -27,10 +27,10 @@ export default {
     usmjeri_aktivnost() {
       switch(this.aktivnosti) {
         case 'planinarenje':
-          this.$router.push('aktivnosti_stranica');
+          this.$router.push('planinarenje_stranica');
           break;
         case 'padobran':
-          this.$router.push('aktivnosti_stranica');
+          this.$router.push('padobran_stranica');
           break;
         case 'ribolov':
           this.$router.push('aktivnosti_stranica');
