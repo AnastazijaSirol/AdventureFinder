@@ -1,40 +1,45 @@
 <template>
-    <div id="app">
-        <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
-        <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
-        <h2 class="naziv_aktivnosti">Skok padobranom</h2>
-        <div class="dodaj_i_filter">
-            <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
-            <div class="filter_destinacije">
-                <div class="filter_tekst">Filter destinacija</div>
-                <select v-model="sortiranje" class="filter">
-                    <option value="asc">Poredaj po ocijenjenosti uzlazno</option>
-                    <option value="desc">Poredaj po ocijenjenosti silazno</option>
-                </select>
-            </div>
-        </div>
+  <div id="app">
+    <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
+    <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
+    <h2 class="naziv_aktivnosti">Skok padobranom</h2>
+    <div class="dodaj_i_filter">
+      <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
+      <div class="filter_destinacije">
+        <div class="filter_tekst">Filter destinacija</div>
+        <select v-model="sortiranje" class="filter">
+          <option value="asc">Poredak po ocijenjenosti uzlazno</option>
+          <option value="desc">Poredak po ocijenjenosti silazno</option>
+        </select>
+      </div>
     </div>
+    <div class="okviri">
+      <div class="okvir" @click="usmjeri_mp">
+        <img src="./aerodrom_varazdin.jpg" alt="Aerodrom Varaždin" class="slika">
+        <div class="tekst"><b>Aerodrom Varaždin, Hrvatska</b></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'App',
-    methods: {
-        usmjeri_pocetna() {
-            this.$router.push('/');
-        },
-        usmjeri_aktivnosti() {
-            this.$router.push('aktivnosti_stranica');
-        },
-        dodaj_des() {
-            this.$router.push('planinarenje_stranica');
-        }
-    }
+name: 'App',
+methods: {
+  usmjeri_pocetna() {
+    this.$router.push('/');
+  },
+  usmjeri_aktivnosti() {
+    this.$router.push('aktivnosti_stranica');
+  },
+  dodaj_des() {
+    this.$router.push('dodavanje_destinacije');
+  }
+}
 };
 </script>
 
 <style lang="scss">
-
 html, body {
   background-color: #1B1C1B;
 }
@@ -80,6 +85,7 @@ html, body {
 
 .filter_destinacije {
   margin-top: 30px;
+  margin-left: 10px;
 }
 
 .filter_tekst {
@@ -97,4 +103,32 @@ html, body {
   border-radius: 5px;
 }
 
+.okviri {
+    display: flex; 
+    margin-top: 30px; 
+    flex-wrap: wrap
+}
+
+.okvir {
+    width: 400px;
+    height: 300px;
+    background-color: #333; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.slika {
+    width: 100%;
+    height: auto; 
+}
+
+.tekst {
+    color: #D9D9D9; 
+    font-size: 1.2em; 
+    margin-top: 10px; 
+    text-align: center; 
+}
 </style>
