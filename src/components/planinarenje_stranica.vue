@@ -8,9 +8,19 @@
             <div class="filter_destinacije">
                 <div class="filter_tekst">Filter destinacija</div>
                 <select v-model="sortiranje" class="filter">
-                    <option value="asc">Poredaj po ocijenjenosti uzlazno</option>
-                    <option value="desc">Poredaj po ocijenjenosti silazno</option>
+                    <option value="asc">Poredak po ocijenjenosti uzlazno</option>
+                    <option value="desc">Poredak po ocijenjenosti silazno</option>
                 </select>
+            </div>
+        </div>
+        <div class="okviri">
+            <div class="okvir" @click="usmjeri_mp">
+                <img src="./machu_picchu.jpg" alt="Machu Picchu" class="slika">
+                <div class="tekst"><b>Machu Picchu, Peru</b></div>
+            </div>
+            <div class="okvir" @click="usmjeri_kz">
+                <img src="./kineski_zid.jpg" alt="Kineski zid" class="slika">
+                <div class="tekst"><b>Kineski zid, Kina</b></div>
             </div>
         </div>
     </div>
@@ -27,14 +37,13 @@ export default {
             this.$router.push('aktivnosti_stranica');
         },
         dodaj_des() {
-            this.$router.push('planinarenje_stranica');
+            this.$router.push('dodavanje_destinacije');
         }
     }
 };
 </script>
 
 <style lang="scss">
-
 html, body {
   background-color: #1B1C1B;
 }
@@ -49,6 +58,10 @@ html, body {
   cursor: pointer;
   margin-left: 10px;
   font-size: 1em;
+}
+
+.naziv_aktivnosti {
+    color: #D9D9D9;
 }
 
 .odjava {
@@ -80,6 +93,7 @@ html, body {
 
 .filter_destinacije {
   margin-top: 30px;
+  margin-left: 10px;
 }
 
 .filter_tekst {
@@ -97,4 +111,32 @@ html, body {
   border-radius: 5px;
 }
 
+.okviri {
+    display: flex; 
+    margin-top: 30px; 
+    flex-wrap: wrap
+}
+
+.okvir {
+    width: 400px;
+    height: 300px;
+    background-color: #333; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.slika {
+    width: 100%;
+    height: auto; 
+}
+
+.tekst {
+    color: #D9D9D9; 
+    font-size: 1.2em; 
+    margin-top: 10px; 
+    text-align: center; 
+}
 </style>
