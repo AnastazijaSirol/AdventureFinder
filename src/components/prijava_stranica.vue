@@ -1,42 +1,37 @@
 <template>
-  <div id="app">
-    <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
-    <h1 class="naslov">Prijava</h1>
-    <div class="kvadrat">
-      <form class="forma">
-        <input type="text" placeholder="Korisničko ime" />
-        <input type="password" placeholder="Lozinka" />
-        <button @click="usmjeri_aktivnosti">Prijava</button>
-      </form>
+    <div id="app">
+        <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
+        <h1 class="naslov">Prijava</h1>
+        <div class="kvadrat">
+        <form class="forma">
+            <input type="text" placeholder="Korisničko ime" />
+            <input type="password" placeholder="Lozinka" />
+            <button @click="usmjeri_aktivnosti">Prijava</button>
+        </form>
+        </div>
+        <p class="poruka">Nemate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
+        <router-view/>
     </div>
-    <p class="poruka">Nemate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
-    <p class="preporuka" @click="usmjeri_administrator"><b>Prijava kao administrator</b></p>
-    <router-view/>
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
-  methods: {
+name: 'App',
+methods: {
     usmjeri_pocetna() {
-      this.$router.push('/');
+        this.$router.push('/');
     },
     usmjeri_aktivnosti() {
         this.$router.push('aktivnosti_stranica');
     },
     usmjeri_registracija() {
-      this.$router.push('registracija_stranica');
-    },
-    usmjeri_administrator() {
-      this.$router.push('prijava_administrator');
+        this.$router.push('registracija_stranica');
     }
-  }
+}
 };
 </script>
 
 <style lang="scss">
-
 html, body {
   background-color: #1B1C1B;
 }
@@ -85,10 +80,4 @@ html, body {
   color: #D9D9D9;
   margin-top: 10px;
 }
-
-.preporuka {
-  color: #D9D9D9;
-  cursor: pointer;
-}
-
 </style>
