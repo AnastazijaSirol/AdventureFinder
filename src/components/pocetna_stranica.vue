@@ -1,5 +1,4 @@
 <template>
-
   <div class="pocetna">
     <title>AdventureFinder</title>
     <h1 class="naslov">AdventureFinder</h1>
@@ -9,11 +8,9 @@
       <button class="registracija" @click="registracija">Registracija</button>
     </div>
   </div>
-
 </template>
 
 <script>
-
 export default {
   name: 'pocetna_stranica',
   methods: {
@@ -29,7 +26,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .pocetna {
   position: fixed;
   top: 0;
@@ -82,5 +78,4 @@ export default {
 .registracija:hover {
   background-color: #333;
 }
-
 </style>
