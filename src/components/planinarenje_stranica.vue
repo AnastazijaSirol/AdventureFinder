@@ -37,7 +37,7 @@ export default {
             this.$router.push('aktivnosti_stranica');
         },
         dodaj_des() {
-            this.$router.push('dodavanje_destinacije');
+            this.$router.push('dodavanje_destinacije_planinarenje');
         }
     }
 };
