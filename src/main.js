@@ -8,6 +8,7 @@ import aktivnosti_stranica from './components/aktivnosti_stranica.vue';
 import planinarenje_stranica from './components/planinarenje_stranica.vue';
 import padobran_stranica from './components/padobran_stranica.vue';
 import dodavanje_destinacije_planinarenje from './components/dodavanje_destinacije_planinarenje.vue';
+import dodavanje_destinacije_padobran from './components/dodavanje_destinacije_padobran.vue';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -17,6 +18,7 @@ const routes=[
     {path: '/planinarenje_stranica', component: () => import ('./components/planinarenje_stranica.vue')},
     {path: '/padobran_stranica', component: () => import ('./components/padobran_stranica.vue')},
     {path: '/dodavanje_destinacije_planinarenje', component: () => import('./components/dodavanje_destinacije_planinarenje.vue')},
+    {path: '/dodavanje_destinacije_padobran', component: () => import('./components/dodavanje_destinacije_padobran.vue')},
 ];
 
 const router = createRouter({
@@ -32,6 +34,7 @@ app.component('aktivnosti_stranica', aktivnosti_stranica);
 app.component('planinarenje_stranica', planinarenje_stranica);
 app.component('padobran_stranica', padobran_stranica);
 app.component('dodavanje_destinacije_planinarenje', dodavanje_destinacije_planinarenje);
+app.component('dodavanje_destinacije_padobran', dodavanje_destinacije_padobran);
 
 app.use(router);
 app.mount('#app');
