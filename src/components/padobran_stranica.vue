@@ -31,6 +31,9 @@ methods: {
   },
   usmjeri_aktivnosti() {
     this.$router.push('aktivnosti_stranica');
+  },
+  dodaj_des() {
+    this.$router.push('dodavanje_destinacije_padobran');
   }
 }
 };
