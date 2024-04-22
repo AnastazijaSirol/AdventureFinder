@@ -11,6 +11,7 @@ import dodavanje_destinacije_planinarenje from './components/dodavanje_destinaci
 import dodavanje_destinacije_padobran from './components/dodavanje_destinacije_padobran.vue';
 import ribolov_stranica from './components/ribolov_stranica.vue';
 import dodavanje_destinacije_ribolov from './components/dodavanje_destinacije_ribolov.vue';
+import prezivljavanje_stranica from './components/prezivljavanje_stranica.vue';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -23,6 +24,7 @@ const routes=[
     {path: '/dodavanje_destinacije_padobran', component: () => import('./components/dodavanje_destinacije_padobran.vue')},
     {path: '/ribolov_stranica', component: () => import ('./components/ribolov_stranica.vue')},
     {path: '/dodavanje_destinacije_ribolov', component: () => import ('./components/dodavanje_destinacije_ribolov')},
+    {path: '/prezivljavanje_stranica', component: () => import ('./components/prezivljavanje_stranica')},
 ];
 
 const router = createRouter({
@@ -41,6 +43,7 @@ app.component('dodavanje_destinacije_planinarenje', dodavanje_destinacije_planin
 app.component('dodavanje_destinacije_padobran', dodavanje_destinacije_padobran);
 app.component('ribolov_stranica', ribolov_stranica);
 app.component('dodavanje_destinacije_ribolov', dodavanje_destinacije_ribolov.vue);
+app.component('prezivljavanje_stranica', prezivljavanje_stranica.vue);
 
 app.use(router);
 app.mount('#app');
