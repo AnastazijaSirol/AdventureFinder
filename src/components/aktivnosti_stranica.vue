@@ -32,7 +32,7 @@ methods: {
                 this.$router.push('padobran_stranica');
                 break;
             case 'ribolov':
-                this.$router.push('aktivnosti_stranica');
+                this.$router.push('ribolov_stranica');
                 break;
             case 'prezivljavanje':
                 this.$router.push('aktivnosti_stranica');
