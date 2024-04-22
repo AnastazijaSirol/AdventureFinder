@@ -35,7 +35,7 @@ methods: {
                 this.$router.push('ribolov_stranica');
                 break;
             case 'prezivljavanje':
-                this.$router.push('aktivnosti_stranica');
+                this.$router.push('prezivljavanje_stranica');
                 break;
             case 'paraglajder':
                 this.$router.push('aktivnosti_stranica');
