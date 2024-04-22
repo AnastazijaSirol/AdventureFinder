@@ -33,7 +33,7 @@ methods: {
     this.$router.push('aktivnosti_stranica');
   },
   dodaj_des() {
-    this.$router.push('dodavanje_destinacije_ribolov');
+    this.$router.push('dodavanje_destinacije_prezivljavanje');
   }
 }
 };
