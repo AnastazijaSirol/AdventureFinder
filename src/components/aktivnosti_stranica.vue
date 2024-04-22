@@ -9,10 +9,8 @@
             <option value="planinarenje">Planinarenje</option>
             <option value="padobran">Skok padobranom</option>
             <option value="ribolov">Ribolov u slatkim vodama</option>
-            <option value="spilje">Istraživanje špilja</option>
             <option value="prezivljavanje">Preživljavanje u divljini</option>
             <option value="paraglajder">Letenje paraglajderom</option>
-            <option value="kampiranje">Kampiranje</option>
         </select>
         <button class="usmjeri_aktivnosti" @click="usmjeri_aktivnost">Istraži</button>
     </div>
@@ -36,16 +34,10 @@ methods: {
             case 'ribolov':
                 this.$router.push('aktivnosti_stranica');
                 break;
-            case 'spilje':
-                this.$router.push('aktivnosti_stranica');
-                break;
             case 'prezivljavanje':
                 this.$router.push('aktivnosti_stranica');
                 break;
             case 'paraglajder':
-                this.$router.push('aktivnosti_stranica');
-                break;
-            case 'kampiranje':
                 this.$router.push('aktivnosti_stranica');
                 break;
             default:
