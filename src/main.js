@@ -16,6 +16,7 @@ import dodavanje_destinacije_prezivljavanje from './components/dodavanje_destina
 import paraglajder_stranica from './components/paraglajder_stranica.vue';
 import dodavanje_destinacije_paraglajder from './components/dodavanje_destinacije_paraglajder.vue';
 import korisnicki_racun from './components/korisnicki_racun.vue';
+import dodavanje_recenzije from './components/dodavanje_recenzije.vue';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -33,6 +34,7 @@ const routes=[
     {path: '/paraglajder_stranica', component: () => import ('./components/paraglajder_stranica')},
     {path: '/dodavanje_destinacije_paraglajder', component: () => import ('./components/dodavanje_destinacije_paraglajder')},
     {path: '/korisnicki_racun', component: () => import ('./components/korisnicki_racun')},
+    {path: '/dodavanje_recenzije', component: () => import ('./components/dodavanje_recenzije')},
 ];
 
 const router = createRouter({
@@ -56,6 +58,7 @@ app.component('dodavanje_destinacije_prezivljavanje', dodavanje_destinacije_prez
 app.component('paraglajder_stranica', paraglajder_stranica);
 app.component('dodavanje_destinacije_paraglajder', dodavanje_destinacije_paraglajder);
 app.component('korisnicki_racun', korisnicki_racun);
+app.component('dodavanje_recenzije', dodavanje_recenzije);
 
 app.use(router);
 app.mount('#app');
