@@ -2,7 +2,7 @@
   <div id="app">
     <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
     <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
-    <h2 class="naziv_aktivnosti">Skok padobranom</h2>
+    <h2 class="naziv_aktivnosti">Planinarenje</h2>
     <div class="dodaj_i_filter">
       <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
       <div class="filter_destinacije">
@@ -14,28 +14,50 @@
       </div>
     </div>
     <div class="okviri">
-      <div class="okvir" @click="usmjeri_mp">
-        <img src="./aerodrom_varazdin.jpg" alt="Aerodrom Varaždin" class="slika">
-        <div class="tekst"><b>Aerodrom Varaždin, Hrvatska</b></div>
+      <div class="okvir" v-if="novaDestinacija" @click="prikaziDetalje(novaDestinacija)">
+        <img :src="novaDestinacija.slika" :alt="novaDestinacija.naziv" class="slika">
+        <div class="tekst"><b>{{ novaDestinacija.naziv }}, {{ novaDestinacija.drzava }}</b></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/firebase';
+
 export default {
-name: 'App',
-methods: {
-  usmjeri_pocetna() {
-    this.$router.push('/');
+  name: 'AktivnostiStranica',
+  data() {
+    return {
+      sortiranje: 'asc',
+      novaDestinacija: null
+    };
   },
-  usmjeri_aktivnosti() {
-    this.$router.push('aktivnosti_stranica');
+  methods: {
+    async ucitajDestinacije() {
+      const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
+      this.novaDestinacija = destinacijeSnapshot.docs.map(doc => {
+        return { id: doc.id, ...doc.data() };
+      }).pop(); // Prikazi samo zadnju dodanu destinaciju
+    },
+    usmjeri_pocetna() {
+      this.$router.push('/');
+    },
+    usmjeri_aktivnosti() {
+      this.$router.push('aktivnosti_stranica');
+    },
+    dodaj_des() {
+      this.$router.push('dodavanje_destinacije_padobran');
+    },
+    prikaziDetalje(destinacija) {
+      console.log('Prikaz detalja destinacije:', destinacija);
+      // Ovdje možete dodati logiku za prikaz detalja destinacije
+    }
   },
-  dodaj_des() {
-    this.$router.push('dodavanje_destinacije_padobran');
+  mounted() {
+    this.ucitajDestinacije();
   }
-}
 };
 </script>
 
