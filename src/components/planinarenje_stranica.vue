@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="okviri">
-            <div class="okvir" @click="usmjeri_mp">
+        <div class="okvir" @click="usmjeri_mp">
                 <img src="./machu_picchu.jpg" alt="Machu Picchu" class="slika">
                 <div class="tekst"><b>Machu Picchu, Peru</b></div>
             </div>
@@ -22,14 +22,33 @@
                 <img src="./kineski_zid.jpg" alt="Kineski zid" class="slika">
                 <div class="tekst"><b>Kineski zid, Kina</b></div>
             </div>
+            <div v-for="destinacija in destinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
+                <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
+                <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/firebase'; 
+
 export default {
     name: 'App',
+    data() {
+        return {
+            sortiranje: 'asc', 
+            destinacije: []
+        };
+    },
     methods: {
+        async ucitajDestinacije() {
+            const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
+            this.destinacije = destinacijeSnapshot.docs.map(doc => {
+                return { id: doc.id, ...doc.data() };
+            });
+        },
         usmjeri_pocetna() {
             this.$router.push('/');
         },
@@ -38,7 +57,13 @@ export default {
         },
         dodaj_des() {
             this.$router.push('dodavanje_destinacije_planinarenje');
+        },
+        prikaziDetalje(id) {
+            console.log('Prikaz detalja destinacije s ID-om:', id);
         }
+    },
+    mounted() {
+        this.ucitajDestinacije(); 
     }
 };
 </script>
