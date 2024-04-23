@@ -23,6 +23,9 @@ methods: {
     usmjeri_pocetna() {
         this.$router.push('/');
     },
+    usmjeri_korisnickiracun() {
+      this.$router.push('korisnicki_racun');
+    },
     usmjeri_aktivnost() {
         switch(this.aktivnosti) {
             case 'planinarenje':
