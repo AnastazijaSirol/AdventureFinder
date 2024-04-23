@@ -15,7 +15,7 @@
     </div>
     <div class="okviri">
       <div class="okvir" @click="usmjeri_mp">
-        <img src="./utah.jpg" alt="SAD" class="slika">
+        <img src="./utah.jpg" alt="Boudler, Utah" class="slika">
         <div class="tekst"><b>Boulder škola preživljavanja, Utah</b></div>
       </div>
     </div>
