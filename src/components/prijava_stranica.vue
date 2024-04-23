@@ -1,35 +1,50 @@
 <template>
-    <div id="app">
-        <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
-        <h1 class="naslov">Prijava</h1>
-        <div class="kvadrat">
-        <form class="forma">
-            <input type="text" placeholder="Korisničko ime" />
-            <input type="password" placeholder="Lozinka" />
-            <button @click="usmjeri_aktivnosti">Prijava</button>
-        </form>
-        </div>
-        <p class="poruka">Nemate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
-        <router-view/>
+  <div id="app">
+    <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
+    <h1 class="naslov">Prijava</h1>
+    <div class="kvadrat">
+      <form class="forma">
+        <input type="text" placeholder="E-pošta" v-model="eposta" />
+        <input type="password" placeholder="Lozinka" v-model="lozinka" />
+        <button @click.prevent="prijava">Prijava</button>
+      </form>
     </div>
+    <p class="poruka">Nemate korisnički račun? <b class="preporuka" @click="usmjeri_registracija">Registrirajte se.</b></p>
+    <router-view/>
+  </div>
 </template>
 
 <script>
+import { signInWithEmailAndPassword } from 'firebase/auth'; 
+import { auth } from '@/firebase'; 
+
 export default {
-name: 'App',
-methods: {
+  name: 'App',
+  data() {
+    return {
+      eposta: '',
+      lozinka: ''
+    };
+  },
+  methods: {
     usmjeri_pocetna() {
-        this.$router.push('/');
+      this.$router.push('/');
     },
-    usmjeri_aktivnosti() {
+    async prijava() {
+      try {
+        await signInWithEmailAndPassword(auth, this.eposta, this.lozinka);
         this.$router.push('aktivnosti_stranica');
+      } catch (error) {
+        console.error('Greška prilikom prijave:', error.message);
+      }
     },
     usmjeri_registracija() {
-        this.$router.push('registracija_stranica');
+      this.$router.push('registracija_stranica');
     }
-}
+  }
 };
 </script>
+
 
 <style lang="scss">
 html, body {
