@@ -1,33 +1,52 @@
 <template>
-    <div id="app">
-        <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
-        <h1 class="naslov">Registracija</h1>
-        <div class="kvadrat">
-            <form class="forma">
-                <input type="text" placeholder="Korisničko ime" v-model="korisnickoIme" />
-                <input type="email" placeholder="E-pošta" v-model="email" />
-                <input type="password" placeholder="Lozinka" v-model="lozinka" />
-                <input type="password" placeholder="Potvrdi lozinku" v-model="potvrdaLozinke" />
-                <button @click="usmjeri_aktivnosti">Registracija</button>
-            </form>
-        </div>
-        <p class="poruka">Već imate korisnički račun? <b class="preporuka" @click="usmjeri_prijava">Prijavi se.</b></p>
-        <router-view/>
+  <div id="app">
+    <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
+    <h1 class="naslov">Registracija</h1>
+    <div class="kvadrat">
+      <form class="forma">
+        <input type="email" placeholder="E-pošta" v-model="email" />
+        <input type="password" placeholder="Lozinka" v-model="lozinka" />
+        <input type="password" placeholder="Potvrdi lozinku" v-model="potvrdaLozinke" />
+        <button @click.prevent="registracija">Registracija</button>
+      </form>
     </div>
+    <p class="poruka">Već imate korisnički račun? <b class="preporuka" @click="usmjeri_prijava">Prijavi se.</b></p>
+    <router-view/>
+  </div>
 </template>
 
 <script>
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/firebase';
+
 export default {
-name: 'App',
-methods: {
+  name: 'App',
+  data() {
+    return {
+      email: '',
+      lozinka: '',
+      potvrdaLozinke: ''
+    };
+  },
+  methods: {
     usmjeri_pocetna() {
-        this.$router.push('/');
+      this.$router.push('/');
     },
-    usmjeri_aktivnosti() {
+    async registracija() {
+      try {
+        if (this.lozinka !== this.potvrdaLozinke) {
+          console.error('Lozinke se ne podudaraju.');
+          return;
+        }
+
+        await createUserWithEmailAndPassword(auth, this.email, this.lozinka);
         this.$router.push('aktivnosti_stranica');
+      } catch (error) {
+        console.error('Greška prilikom registracije:', error.message);
+      }
     },
     usmjeri_prijava() {
-        this.$router.push('prijava_stranica');
+      this.$router.push('prijava_stranica');
     }
   }
 };
