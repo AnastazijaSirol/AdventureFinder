@@ -14,15 +14,7 @@
             </div>
         </div>
         <div class="okviri">
-        <div class="okvir" @click="usmjeri_mp">
-                <img src="./machu_picchu.jpg" alt="Machu Picchu" class="slika">
-                <div class="tekst"><b>Machu Picchu, Peru</b></div>
-            </div>
-            <div class="okvir" @click="usmjeri_kz">
-                <img src="./kineski_zid.jpg" alt="Kineski zid" class="slika">
-                <div class="tekst"><b>Kineski zid, Kina</b></div>
-            </div>
-            <div v-for="destinacija in destinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
+            <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
                 <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
                 <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
             </div>
@@ -31,7 +23,7 @@
 </template>
 
 <script>
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebase'; 
 
 export default {
@@ -44,7 +36,8 @@ export default {
     },
     methods: {
         async ucitajDestinacije() {
-            const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
+            const q = query(collection(db, 'destinacije'), where('nazivdestinacije', 'not-in', ['Machu Picchu', 'Kineski zid']));
+            const destinacijeSnapshot = await getDocs(q);
             this.destinacije = destinacijeSnapshot.docs.map(doc => {
                 return { id: doc.id, ...doc.data() };
             });
@@ -60,6 +53,9 @@ export default {
         },
         prikaziDetalje(id) {
             console.log('Prikaz detalja destinacije s ID-om:', id);
+        },
+        filtriraneDestinacije() {
+            return this.destinacije;
         }
     },
     mounted() {
