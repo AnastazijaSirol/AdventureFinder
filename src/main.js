@@ -15,6 +15,7 @@ import prezivljavanje_stranica from './components/prezivljavanje_stranica.vue';
 import dodavanje_destinacije_prezivljavanje from './components/dodavanje_destinacije_prezivljavanje.vue';
 import paraglajder_stranica from './components/paraglajder_stranica.vue';
 import dodavanje_destinacije_paraglajder from './components/dodavanje_destinacije_paraglajder.vue';
+import korisnicki_racun from './components/korisnicki_racun.vue';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -31,6 +32,7 @@ const routes=[
     {path: '/dodavanje_destinacije_prezivljavanje', component: () => import ('./components/dodavanje_destinacije_prezivljavanje')},
     {path: '/paraglajder_stranica', component: () => import ('./components/paraglajder_stranica')},
     {path: '/dodavanje_destinacije_paraglajder', component: () => import ('./components/dodavanje_destinacije_paraglajder')},
+    {path: '/korisnicki_racun', component: () => import ('./components/korisnicki_racun')},
 ];
 
 const router = createRouter({
@@ -53,6 +55,7 @@ app.component('prezivljavanje_stranica', prezivljavanje_stranica.vue);
 app.component('dodavanje_destinacije_prezivljavanje', dodavanje_destinacije_prezivljavanje.vue);
 app.component('paraglajder_stranica', paraglajder_stranica);
 app.component('dodavanje_destinacije_paraglajder', dodavanje_destinacije_paraglajder);
+app.component('korisnicki_racun', korisnicki_racun);
 
 app.use(router);
 app.mount('#app');
