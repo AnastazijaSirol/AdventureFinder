@@ -6,7 +6,6 @@
         </div>
         <div class="naslov"><b>Korisnički račun</b></div>
         <div class="informacije">
-            <div>Korisničko ime: </div>
             <div>E-pošta: </div>
             <div>Posjećeno: </div>
         </div>
