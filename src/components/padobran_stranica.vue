@@ -39,7 +39,7 @@ export default {
       const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
       this.novaDestinacija = destinacijeSnapshot.docs.map(doc => {
         return { id: doc.id, ...doc.data() };
-      }).pop(); // Prikazi samo zadnju dodanu destinaciju
+      }).pop(); 
     },
     usmjeri_pocetna() {
       this.$router.push('/');
@@ -52,7 +52,6 @@ export default {
     },
     prikaziDetalje(destinacija) {
       console.log('Prikaz detalja destinacije:', destinacija);
-      // Ovdje možete dodati logiku za prikaz detalja destinacije
     }
   },
   mounted() {
