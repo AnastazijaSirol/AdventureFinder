@@ -50,7 +50,8 @@ export default {
                     naplata: this.naplata,
                     potrebnaoprema: this.potrebnaoprema,
                     poveznicazarezervaciju: this.poveznicazarezervaciju,
-                    slikaBase64: this.slikaBase64 
+                    slikaBase64: this.slikaBase64,
+                    izvor: 'planinarenje'
                 };
                 const docRef = await addDoc(collection(db, 'destinacije'), destinacijaData);
                 console.log('Document written with ID: ', docRef.id);
