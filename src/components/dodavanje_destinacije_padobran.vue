@@ -60,7 +60,7 @@ export default {
             }
         },
         usmjeri_natrag() {
-            this.$router.push('planinarenje_stranica');
+            this.$router.push('padobran_stranica');
         },
         handleFileUpload(event) {
             const file = event.target.files[0];
