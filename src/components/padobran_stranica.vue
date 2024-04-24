@@ -2,7 +2,7 @@
   <div id="app">
     <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
     <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
-    <h2 class="naziv_aktivnosti">Planinarenje</h2>
+    <h2 class="naziv_aktivnosti">Skok padobranom</h2>
     <div class="dodaj_i_filter">
       <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
       <div class="filter_destinacije">
