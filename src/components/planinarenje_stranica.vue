@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '@/firebase'; 
 
 export default {
@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         async ucitajDestinacije() {
-            const q = query(collection(db, 'destinacije'), where('nazivdestinacije', 'not-in', ['Machu Picchu', 'Kineski zid']));
+            const q = query(collection(db, 'destinacije'));
             const destinacijeSnapshot = await getDocs(q);
             this.destinacije = destinacijeSnapshot.docs.map(doc => {
                 return { id: doc.id, ...doc.data() };
