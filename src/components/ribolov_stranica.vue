@@ -34,6 +34,11 @@ export default {
             destinacije: []
         };
     },
+    computed: {
+        filtriraneDestinacije() {
+            return this.destinacije.filter(destinacija => destinacija.izvor === 'ribolov');
+        }
+    },
     methods: {
         async ucitajDestinacije() {
             const q = query(collection(db, 'destinacije'));
@@ -53,9 +58,6 @@ export default {
         },
         prikaziDetalje(id) {
             console.log('Prikaz detalja destinacije s ID-om:', id);
-        },
-        filtriraneDestinacije() {
-            return this.destinacije;
         }
     },
     mounted() {
