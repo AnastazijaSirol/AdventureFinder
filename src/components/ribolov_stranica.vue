@@ -1,41 +1,66 @@
 <template>
-  <div id="app">
-    <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
-    <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
-    <h2 class="naziv_aktivnosti">Ribolov u slatkim vodama</h2>
-    <div class="dodaj_i_filter">
-      <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
-      <div class="filter_destinacije">
-        <div class="filter_tekst">Filter destinacija</div>
-        <select v-model="sortiranje" class="filter">
-          <option value="asc">Poredak po ocijenjenosti uzlazno</option>
-          <option value="desc">Poredak po ocijenjenosti silazno</option>
-        </select>
-      </div>
+    <div id="app">
+        <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
+        <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
+        <h2 class="naziv_aktivnosti">Ribolov u slatkim vodama</h2>
+        <div class="dodaj_i_filter">
+            <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
+            <div class="filter_destinacije">
+                <div class="filter_tekst">Filter destinacija</div>
+                <select v-model="sortiranje" class="filter">
+                    <option value="asc">Poredak po ocijenjenosti uzlazno</option>
+                    <option value="desc">Poredak po ocijenjenosti silazno</option>
+                </select>
+            </div>
+        </div>
+        <div class="okviri">
+            <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
+                <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
+                <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
+            </div>
+        </div>
     </div>
-    <div class="okviri">
-      <div class="okvir" @click="usmjeri_mp">
-        <img src="./amazona.jpg" alt="Amazona" class="slika">
-        <div class="tekst"><b>Amazona, Brazil</b></div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
+import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from '@/firebase'; 
+
 export default {
-name: 'App',
-methods: {
-  usmjeri_pocetna() {
-    this.$router.push('/');
-  },
-  usmjeri_aktivnosti() {
-    this.$router.push('aktivnosti_stranica');
-  },
-  dodaj_des() {
-    this.$router.push('dodavanje_destinacije_ribolov');
-  }
-}
+    name: 'App',
+    data() {
+        return {
+            sortiranje: 'asc', 
+            destinacije: []
+        };
+    },
+    methods: {
+        async ucitajDestinacije() {
+            const q = query(collection(db, 'destinacije'));
+            const destinacijeSnapshot = await getDocs(q);
+            this.destinacije = destinacijeSnapshot.docs.map(doc => {
+                return { id: doc.id, ...doc.data() };
+            });
+        },
+        usmjeri_pocetna() {
+            this.$router.push('/');
+        },
+        usmjeri_aktivnosti() {
+            this.$router.push('aktivnosti_stranica');
+        },
+        dodaj_des() {
+            this.$router.push('dodavanje_destinacije_ribolov');
+        },
+        prikaziDetalje(id) {
+            console.log('Prikaz detalja destinacije s ID-om:', id);
+        },
+        filtriraneDestinacije() {
+            return this.destinacije;
+        }
+    },
+    mounted() {
+        this.ucitajDestinacije(); 
+    }
 };
 </script>
 
@@ -54,6 +79,10 @@ html, body {
   cursor: pointer;
   margin-left: 10px;
   font-size: 1em;
+}
+
+.naziv_aktivnosti {
+    color: #D9D9D9;
 }
 
 .odjava {
