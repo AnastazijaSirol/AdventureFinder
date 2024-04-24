@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="okviri">
-            <div v-for="destinacija in destinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
+            <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
                 <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
                 <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
             </div>
@@ -33,6 +33,11 @@ export default {
             sortiranje: 'asc', 
             destinacije: []
         };
+    },
+    computed: {
+        filtriraneDestinacije() {
+            return this.destinacije.filter(destinacija => destinacija.izvor === 'planinarenje');
+        }
     },
     methods: {
         async ucitajDestinacije() {
