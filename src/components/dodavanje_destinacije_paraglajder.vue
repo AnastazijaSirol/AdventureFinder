@@ -10,6 +10,7 @@
                 <input type="text" placeholder="Naplata" v-model="naplata"/>
                 <input type="text" placeholder="Potrebna oprema" v-model="potrebnaoprema"/>
                 <input type="text" placeholder="Poveznica za rezervaciju" v-model="poveznicazarezervaciju"/>
+                <input type="file" @change="handleFileUpload">
                 <button @click.prevent="potvrdi" class="potvrdi">Potvrdi</button>
             </form>
         </div>
@@ -18,14 +19,58 @@
 </template>
 
 <script>
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '@/firebase'; 
+
 export default {
     name: 'App',
+    data() {
+        return {
+            nazivdestinacije: '',
+            drzava: '',
+            vrijemetrajanja: '',
+            naplata: '',
+            potrebnaoprema: '',
+            poveznicazarezervaciju: '',
+            slikaBase64: ''
+        };
+    },
     methods: {
-        usmjeri_natrag() {
-            this.$router.push('paraglajder_stranica');
+        async potvrdi() {
+            if (this.nazivdestinacije.trim() === '' || this.drzava.trim() === '' || this.vrijemetrajanja.trim() === '' || this.naplata.trim() === '' || this.potrebnaoprema.trim() === '' || this.poveznicazarezervaciju.trim() === '' || this.slikaBase64 === '') {
+                console.error('Sva polja moraju biti popunjena.');
+                return;
+            }
+
+            try {
+                const destinacijaData = {
+                    nazivdestinacije: this.nazivdestinacije,
+                    drzava: this.drzava,
+                    vrijemetrajanja: this.vrijemetrajanja,
+                    naplata: this.naplata,
+                    potrebnaoprema: this.potrebnaoprema,
+                    poveznicazarezervaciju: this.poveznicazarezervaciju,
+                    slikaBase64: this.slikaBase64 
+                };
+                const docRef = await addDoc(collection(db, 'destinacije'), destinacijaData);
+                console.log('Document written with ID: ', docRef.id);
+                this.$router.push('planinarenje_stranica');
+            } catch (error) {
+                console.error('Error adding document: ', error);
+            }
         },
-        potvrdi() {
-            this.$router.push('paraglajder_stranica');
+        usmjeri_natrag() {
+            this.$router.push('prezivljavanje_stranica');
+        },
+        handleFileUpload(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                this.slikaBase64 = e.target.result; 
+            };
+
+            reader.readAsDataURL(file);
         }
     }
 };
@@ -61,6 +106,7 @@ html, body {
 }
 
 .forma input[type="text"],
+.forma input[type="file"],
 .forma button {
     margin-bottom: 10px;
     width: calc(100% - 20px);
