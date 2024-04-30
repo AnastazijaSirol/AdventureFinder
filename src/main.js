@@ -18,6 +18,10 @@ import dodavanje_destinacije_paraglajder from './components/dodavanje_destinacij
 import korisnicki_racun from './components/korisnicki_racun.vue';
 import dodavanje_recenzije from './components/dodavanje_recenzije.vue';
 import planinarenje_destinacija from './components/planinarenje_destinacija.vue';
+import padobran_destinacija from './components/padobran_destinacija.vue';
+import ribolov_destinacija from './components/ribolov_destinacija';
+import prezivljavanje_destinacija from './components/prezivljavanje_destinacija';
+import paraglajder_destinacija from './components/paraglajder_destinacija';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -42,6 +46,30 @@ const routes=[
         name: 'planinarenje_destinacija',
         component: planinarenje_destinacija
     },
+    {path: '/padobran_destinacija', component: () => import ('./components/padobran_destinacija.vue')},
+    {
+        path: '/padobran_destinacija/:destinacijaId',
+        name: 'padobran_destinacija',
+        component: padobran_destinacija
+    },
+    {path: '/ribolov_destinacija', component: () => import ('./components/ribolov_destinacija.vue')},
+    {
+        path: '/ribolov_destinacija/:destinacijaId',
+        name: 'ribolov_destinacija',
+        component: ribolov_destinacija
+    },
+    {path: '/prezivljavanje_destinacija', component: () => import ('./components/prezivljavanje_destinacija.vue')},
+    {
+        path: '/prezivljavanje_destinacija/:destinacijaId',
+        name: 'prezivljavanje_destinacija',
+        component: prezivljavanje_destinacija
+    },
+    {path: '/paraglajder_destinacija', component: () => import ('./components/paraglajder_destinacija.vue')},
+    {
+        path: '/paraglajder_destinacija/:destinacijaId',
+        name: 'paraglajder_destinacija',
+        component: paraglajder_destinacija
+    }
 ];
 
 const router = createRouter({
@@ -67,6 +95,10 @@ app.component('dodavanje_destinacije_paraglajder', dodavanje_destinacije_paragla
 app.component('korisnicki_racun', korisnicki_racun);
 app.component('dodavanje_recenzije', dodavanje_recenzije);
 app.component('planinarenje_destinacija', planinarenje_destinacija);
+app.component('padobran_destinacija', padobran_destinacija);
+app.component('ribolov_destinacija', ribolov_destinacija);
+app.component('prezivljavanje_destinacija', prezivljavanje_destinacija);
+app.component('paraglajder_destinacija', paraglajder_destinacija);
 
 app.use(router);
 app.mount('#app');
