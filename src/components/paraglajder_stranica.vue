@@ -57,7 +57,7 @@ export default {
             this.$router.push('dodavanje_destinacije_paraglajder');
         },
         prikaziDetalje(id) {
-            console.log('Prikaz detalja destinacije s ID-om:', id);
+            this.$router.push({ name: 'paraglajder_destinacija', params: { destinacijaId: id } });
         }
     },
     mounted() {
