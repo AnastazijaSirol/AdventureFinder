@@ -16,27 +16,39 @@
 </template>
 
 <script>
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/firebase';
+
 export default {
     data() {
         return {
             ocjena: 0,
             opis: '',
             oznaceneOcjene: {
-            1: false,
-            2: false,
-            3: false,
-            4: false,
-            5: false
+                1: false,
+                2: false,
+                3: false,
+                4: false,
+                5: false
             }
         }
     },
-    name: 'App',
     methods: {
         usmjeriNatrag() {
-            this.$router.push('/');
+            this.$router.back();
         },
-        potvrdi() {
-            this.$router.push('/');
+        async potvrdi() {
+            const novaRecenzija = {
+                ocjena: this.ocjena,
+                opis: this.opis
+            };
+            try {
+                const recenzijeRef = collection(db, 'recenzije');
+                await addDoc(recenzijeRef, novaRecenzija);
+                this.$router.back();
+            } catch (error) {
+                console.error('Greška prilikom spremanja recenzije:', error);
+            }
         },
         postaviOcjenu(ocjena) {
             this.ocjena = ocjena;
