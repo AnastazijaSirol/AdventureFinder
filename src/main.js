@@ -17,6 +17,7 @@ import paraglajder_stranica from './components/paraglajder_stranica.vue';
 import dodavanje_destinacije_paraglajder from './components/dodavanje_destinacije_paraglajder.vue';
 import korisnicki_racun from './components/korisnicki_racun.vue';
 import dodavanje_recenzije from './components/dodavanje_recenzije.vue';
+import planinarenje_destinacija from './components/planinarenje_destinacija.vue';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -25,16 +26,22 @@ const routes=[
     {path: '/aktivnosti_stranica', component: () => import ('./components/aktivnosti_stranica.vue')},
     {path: '/planinarenje_stranica', component: () => import ('./components/planinarenje_stranica.vue')},
     {path: '/padobran_stranica', component: () => import ('./components/padobran_stranica.vue')},
-    {path: '/dodavanje_destinacije_planinarenje', component: () => import('./components/dodavanje_destinacije_planinarenje.vue')},
-    {path: '/dodavanje_destinacije_padobran', component: () => import('./components/dodavanje_destinacije_padobran.vue')},
+    {path: '/dodavanje_destinacije_planinarenje', component: () => import ('./components/dodavanje_destinacije_planinarenje.vue')},
+    {path: '/dodavanje_destinacije_padobran', component: () => import ('./components/dodavanje_destinacije_padobran.vue')},
     {path: '/ribolov_stranica', component: () => import ('./components/ribolov_stranica.vue')},
-    {path: '/dodavanje_destinacije_ribolov', component: () => import ('./components/dodavanje_destinacije_ribolov')},
-    {path: '/prezivljavanje_stranica', component: () => import ('./components/prezivljavanje_stranica')},
-    {path: '/dodavanje_destinacije_prezivljavanje', component: () => import ('./components/dodavanje_destinacije_prezivljavanje')},
-    {path: '/paraglajder_stranica', component: () => import ('./components/paraglajder_stranica')},
-    {path: '/dodavanje_destinacije_paraglajder', component: () => import ('./components/dodavanje_destinacije_paraglajder')},
-    {path: '/korisnicki_racun', component: () => import ('./components/korisnicki_racun')},
-    {path: '/dodavanje_recenzije', component: () => import ('./components/dodavanje_recenzije')},
+    {path: '/dodavanje_destinacije_ribolov', component: () => import ('./components/dodavanje_destinacije_ribolov.vue')},
+    {path: '/prezivljavanje_stranica', component: () => import ('./components/prezivljavanje_stranica.vue')},
+    {path: '/dodavanje_destinacije_prezivljavanje', component: () => import ('./components/dodavanje_destinacije_prezivljavanje.vue')},
+    {path: '/paraglajder_stranica', component: () => import ('./components/paraglajder_stranica.vue')},
+    {path: '/dodavanje_destinacije_paraglajder', component: () => import ('./components/dodavanje_destinacije_paraglajder.vue')},
+    {path: '/korisnicki_racun', component: () => import ('./components/korisnicki_racun.vue')},
+    {path: '/dodavanje_recenzije', component: () => import ('./components/dodavanje_recenzije.vue')},
+    {path: '/planinarenje_destinacija', component: () => import ('./components/planinarenje_destinacija.vue')}, 
+    {
+        path: '/planinarenje_destinacija/:destinacijaId', 
+        name: 'planinarenje_destinacija',
+        component: planinarenje_destinacija
+    },
 ];
 
 const router = createRouter({
@@ -59,6 +66,7 @@ app.component('paraglajder_stranica', paraglajder_stranica);
 app.component('dodavanje_destinacije_paraglajder', dodavanje_destinacije_paraglajder);
 app.component('korisnicki_racun', korisnicki_racun);
 app.component('dodavanje_recenzije', dodavanje_recenzije);
+app.component('planinarenje_destinacija', planinarenje_destinacija);
 
 app.use(router);
 app.mount('#app');
