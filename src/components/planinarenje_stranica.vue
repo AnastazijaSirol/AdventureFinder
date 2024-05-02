@@ -70,7 +70,7 @@ export default {
                         return b.prosjecnaOcjena - a.prosjecnaOcjena;
                     }
                });
-                this.destinacije = [...this.filtriraneDestinacije]; // Kopiramo filtrirane destinacije u destinacije
+                this.destinacije = [...this.filtriraneDestinacije]; 
                this.filtriraneDestinacije.forEach(destinacija => {
                    console.log(`${destinacija.nazivdestinacije}: ${destinacija.prosjecnaOcjena}`);
                 });
