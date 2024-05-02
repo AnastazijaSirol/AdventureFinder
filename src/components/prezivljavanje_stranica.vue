@@ -2,7 +2,7 @@
     <div id="app">
         <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
         <button class="odjava" @click="usmjeri_pocetna">Odjava</button>
-        <h2 class="naziv_aktivnosti">Letenje paraglajderom</h2>
+        <h2 class="naziv_aktivnosti">Preživljavanje u divljini</h2>
         <div class="dodaj_i_filter">
             <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
             <div class="filter_destinacije">
@@ -36,7 +36,7 @@ export default {
     },
     computed: {
         filtriraneDestinacije() {
-            return this.destinacije.filter(destinacija => destinacija.izvor === 'paraglajder');
+            return this.destinacije.filter(destinacija => destinacija.izvor === 'prezivljavanje');
         }
     },
     methods: {
@@ -83,10 +83,10 @@ export default {
             this.$router.push('aktivnosti_stranica');
         },
         dodaj_des() {
-            this.$router.push('dodavanje_destinacije_paraglajder');
+            this.$router.push('dodavanje_destinacije_prezivljavanje');
         },
         prikaziDetalje(id) {
-            this.$router.push({ name: 'paraglajder_destinacija', params: { destinacijaId: id } });
+            this.$router.push({ name: 'prezivljavanje_destinacija', params: { destinacijaId: id } });
         }
     },
     mounted() {
