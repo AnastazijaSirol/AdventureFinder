@@ -69,7 +69,12 @@ const routes=[
         path: '/paraglajder_destinacija/:destinacijaId',
         name: 'paraglajder_destinacija',
         component: paraglajder_destinacija
-    }
+    },
+    {
+        path: '/dodavanje_recenzije/:destinacijaId',
+        name: 'dodavanje_recenzije',
+        component: dodavanje_recenzije
+    },
 ];
 
 const router = createRouter({
