@@ -1,54 +1,95 @@
 <template>
-    <div>
-      <div class="navigation">
-        <button class="back-button" @click="goBack">Natrag</button>
-        <button class="logout-button" @click="logout">Odjava</button>
-      </div>
-      <h2 class="naslov">{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</h2>
-      <h3 class="aktivnost">Letenje paraglajderom</h3>
-      <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika-destinacije">
-      <div class="podaci-destinacije">
-        <p>Vrijeme trajanja: {{ destinacija.vrijemetrajanja }}h</p>
-        <p>Naplata: {{ destinacija.naplata }}€</p>
-        <p>Potrebna oprema: {{ destinacija.potrebnaoprema }}</p>
-        <p>Poveznica za rezervaciju: <a :href="destinacija.poveznicazarezervaciju" target="_blank">{{ destinacija.poveznicazarezervaciju }}</a></p>
-        <button class="dodaj-recenziju" @click="dodajRecenziju">Dodaj recenziju</button>
-      </div>
+  <div>
+    <div class="navigation">
+      <button class="back-button" @click="goBack">Natrag</button>
+      <button class="logout-button" @click="logout">Odjava</button>
     </div>
+    <h2 class="naslov">{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</h2>
+    <h3 class="aktivnost">Letenje paraglajderom</h3>
+    <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika-destinacije">
+    <div class="podaci-destinacije">
+      <p>Vrijeme trajanja: {{ destinacija.vrijemetrajanja }}h</p>
+      <p>Naplata: {{ destinacija.naplata }}€</p>
+      <p>Potrebna oprema: {{ destinacija.potrebnaoprema }}</p>
+      <p>Poveznica za rezervaciju: <a :href="destinacija.poveznicazarezervaciju" target="_blank">{{ destinacija.poveznicazarezervaciju }}</a></p>
+    </div>
+    <button class="dodaj-recenziju" @click="dodajRecenziju(destinacija.id)">Dodaj recenziju</button>
+    <h3 class="naslov-recenzije">Recenzije</h3>
+    <select v-model="sortiranjeRecenzija" class="filter-recenzija" @change="sortirajRecenzije">
+      <option value="asc">Poredak recenzija prema visini ocjene uzlazno</option>
+      <option value="desc">Poredak recenzija prema visini ocjene silazno</option>
+    </select>
+    <div class="rec">
+      <ul class="recenzije-lista" v-if="recenzije.length > 0">
+        <ul class="recenzija" v-for="(recenzija, index) in recenzije" :key="recenzija.id" :style="{ marginRight: (index + 1) % 4 !== 0 ? '20px' : '0' }">
+          <div class="ocjena-recenzije"><span class="ocjena-zvjezdice">{{ getStarRating(recenzija.ocjena) }}</span></div>
+          <div class="opis-recenzije">{{ recenzija.opis }}</div>
+        </ul>
+      </ul>
+      <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
+    </div>
+  </div>
 </template>
 
 <script>
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, collection, query, getDocs, getDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
 
 export default {
   data() {
     return {
-      destinacija: {} 
+      destinacija: {},
+      recenzije: [],
+      sortiranjeRecenzija: 'asc'
     };
   },
   methods: {
-    async goBack() {
-      this.$router.push('/paraglajder_stranica');
-    },
-    async logout() {
-      this.$router.push('/pocetna_stranica');
-    },
     async fetchDestinacija(destinacijaId) {
-      const destinacijaDoc = await getDoc(doc(db, 'destinacije', destinacijaId));
+      const destinacijaRef = doc(db, 'destinacije', destinacijaId);
+      const destinacijaDoc = await getDoc(destinacijaRef);
       if (destinacijaDoc.exists()) {
-        this.destinacija = destinacijaDoc.data(); 
+        this.destinacija = destinacijaDoc.data();
+        await this.fetchRecenzije(destinacijaId); 
       } else {
         console.error('Destinacija ne postoji');
       }
     },
-    dodajRecenziju() {
-      this.$router.push('/dodavanje_recenzije');
+
+    async fetchRecenzije(destinacijaId) {
+      const recenzijeQuery = query(collection(db, `destinacije/${destinacijaId}/recenzije`)); 
+      const recenzijeSnapshot = await getDocs(recenzijeQuery);
+      this.recenzije = recenzijeSnapshot.docs.map(doc => doc.data());
+    },
+
+    dodajRecenziju(destinacijaId) {
+      this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
+    },
+
+    getStarRating(ocjena) {
+      return '★'.repeat(ocjena); 
+    },
+
+    sortirajRecenzije() {
+      this.recenzije.sort((a, b) => {
+        if (this.sortiranjeRecenzija === 'asc') {
+          return a.ocjena - b.ocjena;
+        } else {
+          return b.ocjena - a.ocjena;
+        }
+      });
+    },
+
+    goBack() {
+      this.$router.push('/paraglajder_stranica');
+    },
+
+    logout() {
+      this.$router.push('/pocetna_stranica');
     }
   },
   async mounted() {
-    const destinacijaId = this.$route.params.destinacijaId; 
-    await this.fetchDestinacija(destinacijaId); 
+    const destinacijaId = this.$route.params.destinacijaId;
+    await this.fetchDestinacija(destinacijaId);
   }
 };
 </script>
@@ -63,28 +104,28 @@ export default {
   padding: 0 20px;
 }
 
-.back-button {
+.back-button, .logout-button, .dodaj-recenziju {
   position: absolute;
+  padding: 10px 20px;
+  background-color: #D9D9D9;
+  color: #1B1C1B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button {
   top: 20px;
   left: 20px;
-  background: none;
-  border: none;
-  color: #D9D9D9;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 1em;
 }
 
 .logout-button {
-  position: absolute;
   top: 20px;
   right: 80px;
-  background: none;
-  border: none;
-  color: #D9D9D9;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 1em;
+}
+
+.dodaj-recenziju {
+  left: 20px;
 }
 
 .aktivnost {
@@ -101,15 +142,53 @@ export default {
   margin-top: 20px;
 }
 
-.dodaj-recenziju {
-  position: absolute;
-  background: none;
-  border: none;
+.naslov-recenzije {
+  margin-top: 30px;
   color: #D9D9D9;
-  cursor: pointer;
-  font-size: 1em;
-  left: 20px;
-  padding: 5px;
 }
 
+.rec {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recenzija {
+  border: 1px solid #D9D9D9;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: calc(100% - 20px);
+  color: #D9D9D9;
+}
+
+.ocjena-recenzije {
+  font-weight: bold;
+  color: #D9D9D9;
+}
+
+.opis-recenzije {
+  margin-top: 10px;
+  color: #D9D9D9;
+}
+
+.nema-recenzija {
+  color: #D9D9D9;
+  margin-top: 20px;
+}
+
+.ocjena-zvjezdice {
+  color: #FFD700; 
+}
+
+.filter-recenzija {
+  border: none;
+  background-color: #333;
+  color: #D9D9D9;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+}
 </style>
