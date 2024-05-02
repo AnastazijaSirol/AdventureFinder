@@ -7,7 +7,7 @@
             <button class="dodaj_destinaciju" @click="dodaj_des">Dodaj destinaciju</button>
             <div class="filter_destinacije">
                 <div class="filter_tekst">Filter destinacija</div>
-                <select v-model="sortiranje" class="filter">
+                <select v-model="sortiranje" class="filter" @change="sortirajDestinacije">
                     <option value="asc">Poredak po ocijenjenosti uzlazno</option>
                     <option value="desc">Poredak po ocijenjenosti silazno</option>
                 </select>
@@ -45,6 +45,35 @@ export default {
             const destinacijeSnapshot = await getDocs(q);
             this.destinacije = destinacijeSnapshot.docs.map(doc => {
                 return { id: doc.id, ...doc.data() };
+            });
+        },
+        async izracunajProsjecnuOcijenu(destinacijaId) {
+            const ocjeneQuery = query(collection(db, `destinacije/${destinacijaId}/recenzije`));
+            const ocjeneSnapshot = await getDocs(ocjeneQuery);
+            let sumaOcjena = 0;
+            let brojOcjena = 0;
+            ocjeneSnapshot.forEach(doc => {
+               sumaOcjena += doc.data().ocjena;
+               brojOcjena++;
+            });
+         return brojOcjena ? sumaOcjena / brojOcjena : 0;
+        },
+
+        sortirajDestinacije() {
+            Promise.all(this.filtriraneDestinacije.map(async destinacija => {
+                destinacija.prosjecnaOcjena = await this.izracunajProsjecnuOcijenu(destinacija.id);
+            })).then(() => {
+                this.filtriraneDestinacije.sort((a, b) => {
+                    if (this.sortiranje === 'asc') {
+                        return a.prosjecnaOcjena - b.prosjecnaOcjena;
+                    } else {
+                        return b.prosjecnaOcjena - a.prosjecnaOcjena;
+                    }
+               });
+                this.destinacije = [...this.filtriraneDestinacije]; // Kopiramo filtrirane destinacije u destinacije
+               this.filtriraneDestinacije.forEach(destinacija => {
+                   console.log(`${destinacija.nazivdestinacije}: ${destinacija.prosjecnaOcjena}`);
+                });
             });
         },
         usmjeri_pocetna() {
