@@ -12,20 +12,87 @@
       <p>Naplata: {{ destinacija.naplata }}€</p>
       <p>Potrebna oprema: {{ destinacija.potrebnaoprema }}</p>
       <p>Poveznica za rezervaciju: <a :href="destinacija.poveznicazarezervaciju" target="_blank">{{ destinacija.poveznicazarezervaciju }}</a></p>
-      <button class="dodaj-recenziju" @click="dodajRecenziju(destinacija.id)">Dodaj recenziju</button>
     </div>
+    <button class="dodaj-recenziju" @click="dodajRecenziju(destinacija.id)">Dodaj recenziju</button>
     <h3 class="naslov-recenzije">Recenzije</h3>
+    <select v-model="sortiranjeRecenzija" class="filter-recenzija" @change="sortirajRecenzije">
+      <option value="asc">Poredak recenzija prema visini ocjene uzlazno</option>
+      <option value="desc">Poredak recenzija prema visini ocjene silazno</option>
+    </select>
     <div class="rec">
-    <ul class="recenzije-lista" v-if="recenzije.length > 0">
-      <ul class="recenzija" v-for="(recenzija, index) in recenzije" :key="recenzija.id" :style="{ marginRight: (index + 1) % 4 !== 0 ? '20px' : '0' }">
-        <div class="ocjena-recenzije"><span class="ocjena-zvjezdice">{{ getStarRating(recenzija.ocjena) }}</span></div>
-        <div class="opis-recenzije">{{ recenzija.opis }}</div>
+      <ul class="recenzije-lista" v-if="recenzije.length > 0">
+        <ul class="recenzija" v-for="(recenzija, index) in recenzije" :key="recenzija.id" :style="{ marginRight: (index + 1) % 4 !== 0 ? '20px' : '0' }">
+          <div class="ocjena-recenzije"><span class="ocjena-zvjezdice">{{ getStarRating(recenzija.ocjena) }}</span></div>
+          <div class="opis-recenzije">{{ recenzija.opis }}</div>
+        </ul>
       </ul>
-    </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
     </div>
   </div>
 </template>
+
+<script>
+import { doc, collection, query, getDocs, getDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
+
+export default {
+  data() {
+    return {
+      destinacija: {},
+      recenzije: [],
+      sortiranjeRecenzija: 'asc'
+    };
+  },
+  methods: {
+    async fetchDestinacija(destinacijaId) {
+      const destinacijaRef = doc(db, 'destinacije', destinacijaId);
+      const destinacijaDoc = await getDoc(destinacijaRef);
+      if (destinacijaDoc.exists()) {
+        this.destinacija = destinacijaDoc.data();
+        await this.fetchRecenzije(destinacijaId); 
+      } else {
+        console.error('Destinacija ne postoji');
+      }
+    },
+
+    async fetchRecenzije(destinacijaId) {
+      const recenzijeQuery = query(collection(db, `destinacije/${destinacijaId}/recenzije`)); 
+      const recenzijeSnapshot = await getDocs(recenzijeQuery);
+      this.recenzije = recenzijeSnapshot.docs.map(doc => doc.data());
+    },
+
+    dodajRecenziju(destinacijaId) {
+      this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
+    },
+
+    getStarRating(ocjena) {
+      return '★'.repeat(ocjena); 
+    },
+
+    sortirajRecenzije() {
+      this.recenzije.sort((a, b) => {
+        if (this.sortiranjeRecenzija === 'asc') {
+          return a.ocjena - b.ocjena;
+        } else {
+          return b.ocjena - a.ocjena;
+        }
+      });
+    },
+
+    goBack() {
+      this.$router.push('/padobran_stranica');
+    },
+
+    logout() {
+      this.$router.push('/pocetna_stranica');
+    }
+  },
+  async mounted() {
+    const destinacijaId = this.$route.params.destinacijaId;
+    await this.fetchDestinacija(destinacijaId);
+  }
+};
+</script>
 
 <style scoped>
 .navigation {
@@ -37,28 +104,28 @@
   padding: 0 20px;
 }
 
-.back-button {
+.back-button, .logout-button, .dodaj-recenziju {
   position: absolute;
+  padding: 10px 20px;
+  background-color: #D9D9D9;
+  color: #1B1C1B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button {
   top: 20px;
   left: 20px;
-  background: none;
-  border: none;
-  color: #D9D9D9;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 1em;
 }
 
 .logout-button {
-  position: absolute;
   top: 20px;
   right: 80px;
-  background: none;
-  border: none;
-  color: #D9D9D9;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 1em;
+}
+
+.dodaj-recenziju {
+  left: 20px;
 }
 
 .aktivnost {
@@ -73,17 +140,6 @@
 .podaci-destinacije {
   color: #D9D9D9;
   margin-top: 20px;
-}
-
-.dodaj-recenziju {
-  position: absolute;
-  background: none;
-  border: none;
-  color: #D9D9D9;
-  cursor: pointer;
-  font-size: 1em;
-  left: 20px;
-  padding: 5px;
 }
 
 .naslov-recenzije {
@@ -126,54 +182,13 @@
   color: #FFD700; 
 }
 
+.filter-recenzija {
+  border: none;
+  background-color: #333;
+  color: #D9D9D9;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+}
 </style>
-<script>
-import { doc, collection, query, getDocs, getDoc } from 'firebase/firestore';
-import { db } from '@/firebase';
-
-export default {
-  data() {
-    return {
-      destinacija: {},
-      recenzije: []
-    };
-  },
-  methods: {
-   
-    async fetchDestinacija(destinacijaId) {
-  const destinacijaRef = doc(db, 'destinacije', destinacijaId);
-  const destinacijaDoc = await getDoc(destinacijaRef);
-  if (destinacijaDoc.exists()) {
-    this.destinacija = destinacijaDoc.data();
-    await this.fetchRecenzije(destinacijaId); 
-  } else {
-    console.error('Destinacija ne postoji');
-  }
-},
-
-    async fetchRecenzije(destinacijaId) {
-      const recenzijeQuery = query(collection(db, `destinacije/${destinacijaId}/recenzije`)); 
-      const recenzijeSnapshot = await getDocs(recenzijeQuery);
-      this.recenzije = recenzijeSnapshot.docs.map(doc => doc.data());
-    },
-    goBack() {
-      this.$router.push('/padobran_stranica');
-    },
-    logout() {
-      this.$router.push('/pocetna_stranica');
-    },
-    dodajRecenziju(destinacijaId) {
-      this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
-    },
-
-    getStarRating(ocjena) {
-      return '★'.repeat(ocjena); 
-    }
-  },
-  async mounted() {
-    const destinacijaId = this.$route.params.destinacijaId;
-    await this.fetchDestinacija(destinacijaId);
-  }
-};
-</script>
-
