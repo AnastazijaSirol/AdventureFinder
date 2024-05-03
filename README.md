@@ -16,7 +16,7 @@
 1. Registracija/Prijava
 2. Odabir aktivnosti
 3. Pregled najposjećenijih destinacija
-4. Pregled grafova ocijenjenosti destinacija
+4. Pregled grafova koji prikazuju broj destinacija u pojedinoj državi za određenu aktivnost
 5. Pregled i dodavanje destinacija
 6. Filtriranje destinacija
 7. Označavanje posjećenih destinacija
@@ -28,7 +28,7 @@
 1. Prijava
 2. Odabir aktivnosti
 3. Pregled najposjećenijih destinacija
-4. Pregled grafova ocijenjenosti destinacija
+4. Pregled grafova koji prikazuju broj destinacija u pojedinoj državi za određenu aktivnost
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Filtriranje destinacija
 7. Označavanje posjećenih destinacija
