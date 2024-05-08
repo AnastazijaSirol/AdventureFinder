@@ -16,7 +16,7 @@
 
 <script>
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
-import { auth } from '@/firebase'; 
+import { auth } from '@/firebase';
 
 export default {
   name: 'App',
@@ -30,14 +30,18 @@ export default {
     usmjeri_pocetna() {
       this.$router.push('/');
     },
-    async prijava() {
-      try {
-        await signInWithEmailAndPassword(auth, this.eposta, this.lozinka);
-        this.$router.push('aktivnosti_stranica');
-      } catch (error) {
-        console.error('Greška prilikom prijave:', error.message);
-      }
-    },
+async prijava() {
+  try {
+    await signInWithEmailAndPassword(auth, this.eposta, this.lozinka)
+    .then(() => {
+      alert('Usješno prijavljen');
+      this.$router.push('aktivnosti_stranica');
+    })
+  } catch (error) {
+    console.error('Greška prilikom prijave:', error.message);
+  }
+},
+
     usmjeri_registracija() {
       this.$router.push('registracija_stranica');
     }
