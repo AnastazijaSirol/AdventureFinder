@@ -39,27 +39,15 @@ export default {
       console.error('Lozinke se ne podudaraju.');
       return;
     }
-
     const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.lozinka);
-
-    // Fetch all destinations from the Firestore collection
     const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
-    
-    // Iterate over each destination document
     destinacijeSnapshot.forEach(async (destinacijaDoc) => {
       const destinacijaId = destinacijaDoc.id;
-
-      // Create a reference to the user document in the destination's collection
       const userRef = doc(db, `destinacije/${destinacijaId}/korisnici`, userCredential.user.uid);
-
-      // Set user data in the destination's collection
       await setDoc(userRef, {
-        email: this.email,
-        posjeceno: false
+        email: this.email
       });
     });
-
-    // Redirect the user after successful registration
     this.$router.push('aktivnosti_stranica');
   } catch (error) {
     console.error('Greška prilikom registracije:', error.message);
