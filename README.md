@@ -18,11 +18,11 @@
 3. Pregled najposjećenijih destinacija
 4. Pregled grafova koji prikazuju broj destinacija u pojedinoj državi za određenu aktivnost
 5. Pregled i dodavanje destinacija
-6. Filtriranje destinacija
+6. Sortiranje destinacija
 7. Označavanje posjećenih destinacija
 8. Pregled korisničkog računa i posjećenih destinacija
 9. Pregled i dodavanje recenzija
-10. Filtriranje recenzija
+10. Sortiranje recenzija
 
 #### Administrator:
 1. Prijava
@@ -30,11 +30,11 @@
 3. Pregled najposjećenijih destinacija
 4. Pregled grafova koji prikazuju broj destinacija u pojedinoj državi za određenu aktivnost
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
-6. Filtriranje destinacija
+6. Sortiranje destinacija
 7. Označavanje posjećenih destinacija
 8. Pregled korisničkog računa i posjećenih destinacija
 9. Pregled, dodavanje i brisanje recenzija
-10. Filtriranje recenzija
+10. Sortiranje recenzija
 11. Pregled broja i liste registriranih korisnika
 
 ### Prototip:
