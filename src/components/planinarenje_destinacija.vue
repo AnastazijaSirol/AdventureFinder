@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="navigation">
@@ -40,11 +41,14 @@ import { db, auth } from '@/firebase';
 
 export default {
   data() {
-    return {
-      destinacija: {},
-      recenzije: [],
-      sortiranjeRecenzija: 'asc'
-    };
+  return {
+    destinacija: {
+      posjeceno: localStorage.getItem('posjeceno') === 'true' ? true : false,
+      visited: localStorage.getItem('posjeceno') === 'true' ? true : false
+    },
+    recenzije: [],
+    sortiranjeRecenzija: 'asc'
+  };
   },
   methods: {
     async fetchDestinacija(destinacijaId) {
@@ -71,11 +75,12 @@ export default {
         const korisnikRef = doc(db, 'destinacije', destinacijaId, 'korisnici', korisnikEmail);
         await setDoc(korisnikRef, { posjeceno: !this.destinacija.posjeceno }, { merge: true });
         this.destinacija.posjeceno = !this.destinacija.posjeceno;
+        localStorage.setItem('posjeceno', this.destinacija.posjeceno);
+        console.log(this.destinacija.posjeceno);
       } catch (error) {
-        console.error('Greška prilikom označavanja destinacije kao posjećene:', error.message);
+       console.error('Greška prilikom označavanja destinacije kao posjećene:', error.message);
       }
     },
-
     dodajRecenziju(destinacijaId) {
       this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
     },
@@ -105,6 +110,7 @@ export default {
   async mounted() {
     const destinacijaId = this.$route.params.destinacijaId;
     await this.fetchDestinacija(destinacijaId);
+    this.destinacija.posjeceno = localStorage.getItem('posjeceno') === 'true';
   }
 };
 </script>
