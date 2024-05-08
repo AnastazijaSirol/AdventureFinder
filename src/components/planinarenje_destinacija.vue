@@ -5,6 +5,9 @@
       <button class="logout-button" @click="logout">Odjava</button>
     </div>
     <h2 class="naslov">{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</h2>
+    <button class="mark-visited-button" :class="{ 'visited': destinacija.posjeceno }" @click="toggleVisited">
+      {{ destinacija.posjeceno ? 'Posjećeno ✓' : 'Označi kao posjećeno' }}
+    </button>
     <h3 class="aktivnost">Planinarenje</h3>
     <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika-destinacije">
     <div class="podaci-destinacije">
@@ -32,8 +35,8 @@
 </template>
 
 <script>
-import { doc, collection, query, getDocs, getDoc } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore';
+import { db, auth } from '@/firebase';
 
 export default {
   data() {
@@ -61,6 +64,18 @@ export default {
       this.recenzije = recenzijeSnapshot.docs.map(doc => doc.data());
     },
 
+    async toggleVisited() {
+      try {
+        const korisnikEmail = auth.currentUser.email;
+        const destinacijaId = this.$route.params.destinacijaId;
+        const korisnikRef = doc(db, 'destinacije', destinacijaId, 'korisnici', korisnikEmail);
+        await setDoc(korisnikRef, { posjeceno: !this.destinacija.posjeceno }, { merge: true });
+        this.destinacija.posjeceno = !this.destinacija.posjeceno;
+      } catch (error) {
+        console.error('Greška prilikom označavanja destinacije kao posjećene:', error.message);
+      }
+    },
+
     dodajRecenziju(destinacijaId) {
       this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
     },
@@ -84,7 +99,7 @@ export default {
     },
 
     logout() {
-      this.$router.push('/pocetna_stranica');
+      this.$router.push('/');
     }
   },
   async mounted() {
@@ -191,4 +206,23 @@ export default {
   font-size: 1em;
   border-radius: 5px;
 }
+
+.mark-visited-button {
+  padding: 10px 20px;
+  background-color: #D9D9D9;
+  color: #1B1C1B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mark-visited-button.visited {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: green;
+  color: white;
+}
+
 </style>
