@@ -31,11 +31,11 @@
     },
     methods: {
       natrag() {
-        this.$router.push({ name: 'aktivnosti_stranica' });
+        this.$router.push('aktivnosti_stranica');
       },
       odjava() {
         localStorage.removeItem('financije');
-        this.$router.push({ name: 'pocetna_stranica' });
+        this.$router.push('/');
       },
       async azurirajFinancije() {
         if (!this.currentUser) {
