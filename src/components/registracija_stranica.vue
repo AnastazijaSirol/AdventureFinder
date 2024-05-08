@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
@@ -34,25 +33,31 @@ export default {
       this.$router.push('/');
     },
     async registracija() {
-  try {
-    if (this.lozinka !== this.potvrdaLozinke) {
-      console.error('Lozinke se ne podudaraju.');
-      return;
-    }
-    const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.lozinka);
-    const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
-    destinacijeSnapshot.forEach(async (destinacijaDoc) => {
-      const destinacijaId = destinacijaDoc.id;
-      const userRef = doc(db, `destinacije/${destinacijaId}/korisnici`, userCredential.user.uid);
-      await setDoc(userRef, {
-        email: this.email
-      });
-    });
-    this.$router.push('aktivnosti_stranica');
-  } catch (error) {
-    console.error('Greška prilikom registracije:', error.message);
-  }
-},
+      try {
+        if (this.lozinka !== this.potvrdaLozinke) {
+          console.error('Lozinke se ne podudaraju.');
+          return;
+        }
+        const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.lozinka);
+        const destinacijeSnapshot = await getDocs(collection(db, 'destinacije'));
+        destinacijeSnapshot.forEach(async (destinacijaDoc) => {
+          const destinacijaId = destinacijaDoc.id;
+          const userRef = doc(db, `destinacije/${destinacijaId}/korisnici`, userCredential.user.uid);
+          await setDoc(userRef, {
+            email: this.email
+          });
+        });
+
+        await setDoc(doc(db, 'registrirani', userCredential.user.uid), {
+          email: this.email,
+          financije: 0
+        });
+
+        this.$router.push('aktivnosti_stranica');
+      } catch (error) {
+        console.error('Greška prilikom registracije:', error.message);
+      }
+    },
     usmjeri_prijava() {
       this.$router.push('prijava_stranica');
     }
