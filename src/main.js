@@ -22,6 +22,7 @@ import padobran_destinacija from './components/padobran_destinacija.vue';
 import ribolov_destinacija from './components/ribolov_destinacija';
 import prezivljavanje_destinacija from './components/prezivljavanje_destinacija';
 import paraglajder_destinacija from './components/paraglajder_destinacija';
+import mapa_prikaz from './components/mapa_prikaz.vue';
 
 const routes=[
     {path: '/', component: pocetna_stranica},
@@ -75,6 +76,7 @@ const routes=[
         name: 'dodavanje_recenzije',
         component: dodavanje_recenzije
     },
+    {path: '/mapa_prikaz', component: () => import  ('./components/mapa_prikaz.vue')},
 ];
 
 const router = createRouter({
@@ -104,6 +106,7 @@ app.component('padobran_destinacija', padobran_destinacija);
 app.component('ribolov_destinacija', ribolov_destinacija);
 app.component('prezivljavanje_destinacija', prezivljavanje_destinacija);
 app.component('paraglajder_destinacija', paraglajder_destinacija);
+app.component('mapa_prikaz', mapa_prikaz);
 
 app.use(router);
 app.mount('#app');
