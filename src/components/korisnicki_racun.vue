@@ -19,7 +19,7 @@
 
   <script>
   import { onAuthStateChanged } from 'firebase/auth';
-  import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore';
+  import { doc, getDoc, setDoc } from 'firebase/firestore';
   import { db, auth } from '@/firebase';
 
   export default {
