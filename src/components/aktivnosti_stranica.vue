@@ -57,7 +57,7 @@
                 this.$router.push('prezivljavanje_stranica');
                 break;
             case 'paraglajder':
-                this.$router.push('aktivnosti_stranica');
+                this.$router.push('paraglajder_stranica');
                 break;
             default:
                 break;
