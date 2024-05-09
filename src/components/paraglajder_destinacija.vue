@@ -32,6 +32,7 @@
       </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
     </div>
+    <mapa_prikaz></mapa_prikaz>
   </div>
 </template>
 
