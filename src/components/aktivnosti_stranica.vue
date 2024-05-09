@@ -27,8 +27,8 @@
   </template>
   
   <script>
-  import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore';
-  import { db, auth } from '@/firebase';
+  import { getDocs, collection } from 'firebase/firestore';
+  import { db } from '@/firebase';
   export default {
   name: 'App',
   data() {
