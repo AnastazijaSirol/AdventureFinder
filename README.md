@@ -15,7 +15,7 @@
 #### Korisnici:
 1. Registracija/Prijava
 2. Odabir aktivnosti
-3. Pregled najposjećenijih destinacija
+3. Pregled broja destinacija svake aktivnosti
 4. Pregled grafova koji prikazuju broj destinacija u pojedinoj državi za određenu aktivnost
 5. Pregled i dodavanje destinacija
 6. Sortiranje destinacija
@@ -28,7 +28,7 @@
 #### Administrator:
 1. Prijava
 2. Odabir aktivnosti
-3. Pregled najposjećenijih destinacija
+3. Pregled broja destinacija svake aktivnosti
 4. Pregled grafova koji prikazuju broj destinacija u pojedinoj državi za određenu aktivnost
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Sortiranje destinacija
