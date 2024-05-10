@@ -24,6 +24,7 @@
 9. Pregled i dodavanje recenzija
 10. Sortiranje recenzija
 11. Ažuriranje financija
+12. Pregled google karte
 
 #### Administrator:
 1. Prijava
@@ -38,6 +39,7 @@
 10. Sortiranje recenzija
 11. Pregled broja i liste registriranih korisnika
 12. Ažuriranje financija
+13. Pregled google karte
 
 ### Prototip:
 [link na prototip](https://www.figma.com/file/RSFeQReWAodcNinftAICm8/AdventureFinder?type=design&node-id=1%3A2&mode=design&t=MVWFohIzRAXBsqEF-1)
