@@ -13,6 +13,9 @@
         €
       </div>
     </div>
+    <div class="razgovor">
+      <h3>Razmjena poruka</h3>
+    </div>
     <div class="unos-poruke">
       <input type="text" v-model="novaPoruka" placeholder="Unesite poruku..." />
       <button @click="posaljiPoruku">Pošalji</button>
@@ -168,5 +171,9 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.razgovor {
+  color: rgb(25, 242, 254);
 }
 </style>
