@@ -20,11 +20,11 @@
 5. Pregled i dodavanje destinacija
 6. Sortiranje destinacija
 7. Označavanje posjećenih destinacija
-8. Razmjena poruka s ostalim korisnicima
-9. Pregled i dodavanje recenzija
-10. Sortiranje recenzija
-11. Ažuriranje financija
-12. Pregled google karte
+8. Pregled i dodavanje recenzija
+9. Sortiranje recenzija
+10. Pregled google karte
+11. Razmjena poruka s ostalim korisnicima
+12. Ažuriranje financija
 
 #### Administrator:
 1. Prijava
@@ -34,12 +34,12 @@
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Sortiranje destinacija
 7. Označavanje posjećenih destinacija
-8. Razmjena poruka s ostalim korisnicima
-9. Pregled, dodavanje i brisanje recenzija
-10. Sortiranje recenzija
-11. Pregled broja i liste registriranih korisnika
+8. Pregled, dodavanje i brisanje recenzija
+9. Sortiranje recenzija
+10. Pregled google karte
+11. Razmjena poruka s ostalim korisnicima
 12. Ažuriranje financija
-13. Pregled google karte
+13. Pregled broja i liste registriranih korisnika
 
 ### Prototip:
 [link na prototip](https://www.figma.com/file/RSFeQReWAodcNinftAICm8/AdventureFinder?type=design&node-id=1%3A2&mode=design&t=MVWFohIzRAXBsqEF-1)
