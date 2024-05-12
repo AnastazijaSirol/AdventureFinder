@@ -20,7 +20,7 @@
 5. Pregled i dodavanje destinacija
 6. Sortiranje destinacija
 7. Označavanje posjećenih destinacija
-8. Pregled korisničkog računa i posjećenih destinacija
+8. Razmjena poruka s ostalim korisnicima
 9. Pregled i dodavanje recenzija
 10. Sortiranje recenzija
 11. Ažuriranje financija
@@ -34,7 +34,7 @@
 5. Pregled, dodavanje, brisanje i uređivanje destinacija
 6. Sortiranje destinacija
 7. Označavanje posjećenih destinacija
-8. Pregled korisničkog računa i posjećenih destinacija
+8. Razmjena poruka s ostalim korisnicima
 9. Pregled, dodavanje i brisanje recenzija
 10. Sortiranje recenzija
 11. Pregled broja i liste registriranih korisnika
