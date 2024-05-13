@@ -16,16 +16,17 @@
       </div>
     </div>
     <div class="okviri">
-      <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
+      <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir">
         <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
         <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
+        <button class="obrisi-destinaciju-button" @click.stop="obrisiDestinaciju(destinacija.id)">Obriši destinaciju</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/firebase'; 
 import Chart from 'chart.js/auto';
 
@@ -142,6 +143,14 @@ export default {
     },
     dodaj_des() {
       this.$router.push('dodavanje_destinacije_planinarenje');
+    },
+    async obrisiDestinaciju(destinacijaId) {
+      try {
+        await deleteDoc(doc(db, 'destinacije', destinacijaId));
+        this.destinacije = this.destinacije.filter(destinacija => destinacija.id !== destinacijaId);
+      } catch (error) {
+        console.error('Greška prilikom brisanja destinacije:', error.message);
+      }
     },
     prikaziDetalje(id) {
       this.$router.push({ name: 'planinarenje_destinacija', params: { destinacijaId: id } });
@@ -270,4 +279,13 @@ html, body {
   justify-content: center;
 }
 
+.obrisi-destinaciju-button {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 </style>
