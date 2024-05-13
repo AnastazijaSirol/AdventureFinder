@@ -27,6 +27,7 @@
         <ul class="recenzija" v-for="(recenzija, index) in recenzije" :key="recenzija.id" :style="{ marginRight: (index + 1) % 4 !== 0 ? '20px' : '0' }">
           <div class="ocjena-recenzije"><span class="ocjena-zvjezdice">{{ getStarRating(recenzija.ocjena) }}</span></div>
           <div class="opis-recenzije">{{ recenzija.opis }}</div>
+          <button class="obrisi-recenziju-button" @click="obrisiRecenziju(recenzija.id)">Obriši recenziju</button>
         </ul>
       </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, query, collection, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '@/firebase';
 
 export default {
@@ -61,7 +62,7 @@ export default {
     async fetchRecenzije(destinacijaId) {
       const recenzijeQuery = query(collection(db, `destinacije/${destinacijaId}/recenzije`)); 
       const recenzijeSnapshot = await getDocs(recenzijeQuery);
-      this.recenzije = recenzijeSnapshot.docs.map(doc => doc.data());
+      this.recenzije = recenzijeSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
 
     async toggleVisited() {
@@ -95,6 +96,16 @@ export default {
       });
     },
 
+    async obrisiRecenziju(recenzijaId) {
+      try {
+        const destinacijaId = this.$route.params.destinacijaId;
+        await deleteDoc(doc(db, `destinacije/${destinacijaId}/recenzije`, recenzijaId));
+        this.recenzije = this.recenzije.filter(recenzija => recenzija.id !== recenzijaId);
+      } catch (error) {
+        console.error('Greška prilikom brisanja recenzije:', error.message);
+      }
+    },
+
     goBack() {
       this.$router.push('/planinarenje_stranica');
     },
@@ -111,9 +122,6 @@ export default {
   }
 };
 </script>
-
-
-
 
 <style scoped>
 .navigation {
@@ -229,6 +237,15 @@ export default {
   cursor: pointer;
   background-color: green;
   color: white;
+}
+
+.obrisi-recenziju-button {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 </style>
