@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="navigation">
@@ -32,7 +31,6 @@
       </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
     </div>
-    <mapa_prikaz></mapa_prikaz>
   </div>
 </template>
 
@@ -42,14 +40,11 @@ import { db, auth } from '@/firebase';
 
 export default {
   data() {
-  return {
-    destinacija: {
-      posjeceno: localStorage.getItem('posjeceno') === 'true' ? true : false,
-      visited: localStorage.getItem('posjeceno') === 'true' ? true : false
-    },
-    recenzije: [],
-    sortiranjeRecenzija: 'asc'
-  };
+    return {
+      destinacija: {},
+      recenzije: [],
+      sortiranjeRecenzija: 'asc'
+    };
   },
   methods: {
     async fetchDestinacija(destinacijaId) {
@@ -71,17 +66,17 @@ export default {
 
     async toggleVisited() {
       try {
-        const korisnikEmail = auth.currentUser.email;
+        const korisnikId = auth.currentUser.uid; 
         const destinacijaId = this.$route.params.destinacijaId;
-        const korisnikRef = doc(db, 'destinacije', destinacijaId, 'korisnici', korisnikEmail);
+        const korisnikRef = doc(db, 'destinacije', destinacijaId, 'korisnici', korisnikId);
         await setDoc(korisnikRef, { posjeceno: !this.destinacija.posjeceno }, { merge: true });
         this.destinacija.posjeceno = !this.destinacija.posjeceno;
-        localStorage.setItem(`posjeceno_${destinacijaId}`, this.destinacija.posjeceno); 
-        console.log(this.destinacija.posjeceno);
+        localStorage.setItem(`posjeceno_${destinacijaId}_${korisnikId}`, this.destinacija.posjeceno.toString()); 
       } catch (error) {
         console.error('Greška prilikom označavanja destinacije kao posjećene:', error.message);
       }
     },
+
     dodajRecenziju(destinacijaId) {
       this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
     },
@@ -111,10 +106,14 @@ export default {
   async mounted() {
     const destinacijaId = this.$route.params.destinacijaId;
     await this.fetchDestinacija(destinacijaId);
-    this.destinacija.posjeceno = localStorage.getItem(`posjeceno_${destinacijaId}`) === 'true';
+    const korisnikId = auth.currentUser.uid; 
+    this.destinacija.posjeceno = localStorage.getItem(`posjeceno_${destinacijaId}_${korisnikId}`) === 'true';
   }
 };
 </script>
+
+
+
 
 <style scoped>
 .navigation {
