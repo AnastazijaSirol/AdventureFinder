@@ -16,17 +16,18 @@
       </div>
     </div>
     <div class="okviri">
-      <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
+      <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir">
         <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
         <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
+        <button v-if="isAdmin" class="obrisi-destinaciju-button" @click.stop="obrisiDestinaciju(destinacija.id)">Obriši destinaciju</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { collection, getDocs, query } from 'firebase/firestore';
-import { db } from '@/firebase'; 
+import { collection, getDocs, query, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '@/firebase'; 
 import Chart from 'chart.js/auto';
 
 export default {
@@ -35,7 +36,8 @@ export default {
     return {
       sortiranje: 'asc', 
       destinacije: [],
-      myChart: null
+      myChart: null,
+      isAdmin: false
     };
   },
   computed: {
@@ -134,6 +136,17 @@ export default {
       canvas.width = 150;
       canvas.height = 150;
     },
+    async obrisiDestinaciju(destinacijaId) {
+      try {
+        await deleteDoc(doc(db, 'destinacije', destinacijaId));
+        this.destinacije = this.destinacije.filter(destinacija => destinacija.id !== destinacijaId);
+      } catch (error) {
+        console.error('Greška prilikom brisanja destinacije:', error.message);
+      }
+    },
+    prikaziDetalje(id) {
+      this.$router.push({ name: 'prezivljavanje_destinacija', params: { destinacijaId: id } });
+    },
     usmjeri_pocetna() {
       this.$router.push('/');
     },
@@ -142,14 +155,20 @@ export default {
     },
     dodaj_des() {
       this.$router.push('dodavanje_destinacije_prezivljavanje');
-    },
-    prikaziDetalje(id) {
-      this.$router.push({ name: 'prezivljavanje_destinacija', params: { destinacijaId: id } });
     }
   },
-  mounted() {
+  async mounted() {
     this.ucitajDestinacije(); 
     this.postaviDimenzijeGrafikona();
+
+    const korisnikId = auth.currentUser.uid;
+    const korisnikRef = doc(db, 'registrirani', korisnikId);
+    const korisnikDoc = await getDoc(korisnikRef);
+    
+    if (korisnikDoc.exists()) {
+      const isAdmin = korisnikDoc.data().isAdmin;
+      this.isAdmin = isAdmin;
+    }
   }
 };
 </script>
@@ -270,4 +289,13 @@ html, body {
   justify-content: center;
 }
 
+.obrisi-destinaciju-button {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 </style>
