@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="navigation">
@@ -28,28 +27,26 @@
         <ul class="recenzija" v-for="(recenzija, index) in recenzije" :key="recenzija.id" :style="{ marginRight: (index + 1) % 4 !== 0 ? '20px' : '0' }">
           <div class="ocjena-recenzije"><span class="ocjena-zvjezdice">{{ getStarRating(recenzija.ocjena) }}</span></div>
           <div class="opis-recenzije">{{ recenzija.opis }}</div>
+          <button v-if="isAdmin" class="obrisi-recenziju-button" @click="obrisiRecenziju(recenzija.id)">Obriši recenziju</button>
         </ul>
       </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
     </div>
-    <mapa_prikaz></mapa_prikaz>
   </div>
 </template>
 
 <script>
-import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, query, collection, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '@/firebase';
 
 export default {
   data() {
-  return {
-    destinacija: {
-      posjeceno: localStorage.getItem('posjeceno') === 'true' ? true : false,
-      visited: localStorage.getItem('posjeceno') === 'true' ? true : false
-    },
-    recenzije: [],
-    sortiranjeRecenzija: 'asc'
-  };
+    return {
+      destinacija: {},
+      recenzije: [],
+      sortiranjeRecenzija: 'asc',
+      isAdmin: false
+    };
   },
   methods: {
     async fetchDestinacija(destinacijaId) {
@@ -66,22 +63,22 @@ export default {
     async fetchRecenzije(destinacijaId) {
       const recenzijeQuery = query(collection(db, `destinacije/${destinacijaId}/recenzije`)); 
       const recenzijeSnapshot = await getDocs(recenzijeQuery);
-      this.recenzije = recenzijeSnapshot.docs.map(doc => doc.data());
+      this.recenzije = recenzijeSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     },
 
     async toggleVisited() {
       try {
-        const korisnikEmail = auth.currentUser.email;
+        const korisnikId = auth.currentUser.uid; 
         const destinacijaId = this.$route.params.destinacijaId;
-        const korisnikRef = doc(db, 'destinacije', destinacijaId, 'korisnici', korisnikEmail);
+        const korisnikRef = doc(db, 'destinacije', destinacijaId, 'korisnici', korisnikId);
         await setDoc(korisnikRef, { posjeceno: !this.destinacija.posjeceno }, { merge: true });
         this.destinacija.posjeceno = !this.destinacija.posjeceno;
-        localStorage.setItem(`posjeceno_${destinacijaId}`, this.destinacija.posjeceno); 
-        console.log(this.destinacija.posjeceno);
+        localStorage.setItem(`posjeceno_${destinacijaId}_${korisnikId}`, this.destinacija.posjeceno.toString()); 
       } catch (error) {
         console.error('Greška prilikom označavanja destinacije kao posjećene:', error.message);
       }
     },
+
     dodajRecenziju(destinacijaId) {
       this.$router.push({ name: 'dodavanje_recenzije', params: { destinacijaId } });
     },
@@ -100,6 +97,16 @@ export default {
       });
     },
 
+    async obrisiRecenziju(recenzijaId) {
+      try {
+        const destinacijaId = this.$route.params.destinacijaId;
+        await deleteDoc(doc(db, `destinacije/${destinacijaId}/recenzije`, recenzijaId));
+        this.recenzije = this.recenzije.filter(recenzija => recenzija.id !== recenzijaId);
+      } catch (error) {
+        console.error('Greška prilikom brisanja recenzije:', error.message);
+      }
+    },
+
     goBack() {
       this.$router.push('/padobran_stranica');
     },
@@ -111,7 +118,18 @@ export default {
   async mounted() {
     const destinacijaId = this.$route.params.destinacijaId;
     await this.fetchDestinacija(destinacijaId);
-    this.destinacija.posjeceno = localStorage.getItem(`posjeceno_${destinacijaId}`) === 'true';
+    const korisnikId = auth.currentUser.uid; 
+    this.destinacija.posjeceno = localStorage.getItem(`posjeceno_${destinacijaId}_${korisnikId}`) === 'true';
+    const korisnikRef = doc(db, 'registrirani', korisnikId);
+    const korisnikDoc = await getDoc(korisnikRef);
+    
+    if (korisnikDoc.exists()) {
+      const isAdmin = korisnikDoc.data().isAdmin;
+      
+      if (isAdmin) {
+        this.isAdmin = true;
+      }
+    }
   }
 };
 </script>
@@ -232,4 +250,12 @@ export default {
   color: white;
 }
 
+.obrisi-recenziju-button {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 </style>
