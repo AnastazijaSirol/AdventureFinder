@@ -19,7 +19,7 @@
       <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir">
         <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
         <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
-        <button class="obrisi-destinaciju-button" @click.stop="obrisiDestinaciju(destinacija.id)">Obriši destinaciju</button>
+        <button v-if="isAdmin" class="obrisi-destinaciju-button" @click.stop="obrisiDestinaciju(destinacija.id)">Obriši destinaciju</button>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
 
 <script>
 import { collection, getDocs, query, deleteDoc, doc, getDoc } from 'firebase/firestore';
-import { db } from '@/firebase'; 
+import { db, auth } from '@/firebase'; 
 import Chart from 'chart.js/auto';
 
 export default {
@@ -36,7 +36,8 @@ export default {
     return {
       sortiranje: 'asc', 
       destinacije: [],
-      myChart: null
+      myChart: null,
+      isAdmin: false
     };
   },
   computed: {
@@ -135,15 +136,6 @@ export default {
       canvas.width = 150;
       canvas.height = 150;
     },
-    usmjeri_pocetna() {
-      this.$router.push('/');
-    },
-    usmjeri_aktivnosti() {
-      this.$router.push('aktivnosti_stranica');
-    },
-    dodaj_des() {
-      this.$router.push('dodavanje_destinacije_planinarenje');
-    },
     async obrisiDestinaciju(destinacijaId) {
       try {
         await deleteDoc(doc(db, 'destinacije', destinacijaId));
@@ -154,11 +146,29 @@ export default {
     },
     prikaziDetalje(id) {
       this.$router.push({ name: 'planinarenje_destinacija', params: { destinacijaId: id } });
+    },
+    usmjeri_pocetna() {
+      this.$router.push('/');
+    },
+    usmjeri_aktivnosti() {
+      this.$router.push('aktivnosti_stranica');
+    },
+    dodaj_des() {
+      this.$router.push('dodavanje_destinacije_planinarenje');
     }
   },
-  mounted() {
+  async mounted() {
     this.ucitajDestinacije(); 
     this.postaviDimenzijeGrafikona();
+
+    const korisnikId = auth.currentUser.uid;
+    const korisnikRef = doc(db, 'registrirani', korisnikId);
+    const korisnikDoc = await getDoc(korisnikRef);
+    
+    if (korisnikDoc.exists()) {
+      const isAdmin = korisnikDoc.data().isAdmin;
+      this.isAdmin = isAdmin;
+    }
   }
 };
 </script>
