@@ -27,7 +27,7 @@
         <ul class="recenzija" v-for="(recenzija, index) in recenzije" :key="recenzija.id" :style="{ marginRight: (index + 1) % 4 !== 0 ? '20px' : '0' }">
           <div class="ocjena-recenzije"><span class="ocjena-zvjezdice">{{ getStarRating(recenzija.ocjena) }}</span></div>
           <div class="opis-recenzije">{{ recenzija.opis }}</div>
-          <button class="obrisi-recenziju-button" @click="obrisiRecenziju(recenzija.id)">Obriši recenziju</button>
+          <button v-if="isAdmin" class="obrisi-recenziju-button" @click="obrisiRecenziju(recenzija.id)">Obriši recenziju</button>
         </ul>
       </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
@@ -44,7 +44,8 @@ export default {
     return {
       destinacija: {},
       recenzije: [],
-      sortiranjeRecenzija: 'asc'
+      sortiranjeRecenzija: 'asc',
+      isAdmin: false
     };
   },
   methods: {
@@ -119,6 +120,16 @@ export default {
     await this.fetchDestinacija(destinacijaId);
     const korisnikId = auth.currentUser.uid; 
     this.destinacija.posjeceno = localStorage.getItem(`posjeceno_${destinacijaId}_${korisnikId}`) === 'true';
+    const korisnikRef = doc(db, 'registrirani', korisnikId);
+    const korisnikDoc = await getDoc(korisnikRef);
+    
+    if (korisnikDoc.exists()) {
+      const isAdmin = korisnikDoc.data().isAdmin;
+      
+      if (isAdmin) {
+        this.isAdmin = true;
+      }
+    }
   }
 };
 </script>
@@ -247,5 +258,4 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
-
 </style>
