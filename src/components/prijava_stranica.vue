@@ -34,7 +34,6 @@ async prijava() {
   try {
     await signInWithEmailAndPassword(auth, this.eposta, this.lozinka)
     .then(() => {
-      alert('Usješno prijavljen');
       this.$router.push('aktivnosti_stranica');
     })
   } catch (error) {
