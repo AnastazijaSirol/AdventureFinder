@@ -13,6 +13,13 @@
         €
       </div>
     </div>
+    <div class="broj">Broj registriranih korisnika: {{ brojRegistriranihKorisnika }}</div>
+    <div class="reg">
+      <h3>Registrirani korisnici</h3>
+      <ul>
+        <ul v-for="(korisnik, index) in listaKorisnika" :key="index">{{ korisnik.email }}</ul>
+      </ul>
+    </div>
     <div class="razgovor">
       <h3>Razmjena poruka</h3>
     </div>
@@ -38,6 +45,8 @@ export default {
     return {
       currentUser: null,
       financije: localStorage.getItem('financije') || 0,
+      brojRegistriranihKorisnika: 0,
+      listaKorisnika: [],
       poruke: [],
       novaPoruka: ''
     };
@@ -69,6 +78,15 @@ export default {
       const querySnapshot = await getDocs(collection(db, 'poruke'));
       this.poruke = querySnapshot.docs.map(doc => doc.data());
     },
+    async ucitajKorisnike() {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'registrirani'));
+        this.listaKorisnika = querySnapshot.docs.map(doc => doc.data());
+        this.brojRegistriranihKorisnika = this.listaKorisnika.length;
+      } catch (error) {
+        console.error('Došlo je do pogreške prilikom dohvaćanja korisnika:', error);
+      }
+    },
     async posaljiPoruku() {
       if (!this.currentUser) {
         console.error('Korisnik nije prijavljen.');
@@ -90,7 +108,8 @@ export default {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.currentUser = user;
-        await this.ucitajPoruke(); 
+        await this.ucitajPoruke();
+        await this.ucitajKorisnike();
         const userId = user.uid;
         const userDoc = await getDoc(doc(db, 'registrirani', userId));
         if (userDoc.exists()) {
@@ -176,4 +195,33 @@ export default {
 .razgovor {
   color: rgb(25, 242, 254);
 }
+
+.broj {
+  background-color: #E0E0E0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: fit-content;
+  color: #1B1C1B;
+  margin: 0 auto 20px auto; 
+}
+
+.reg {
+  background-color: #E0E0E0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: fit-content;
+  margin: 0 auto 20px auto;
+}
+
+.reg ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reg ul li {
+  margin-bottom: 5px;
+}
+
 </style>
