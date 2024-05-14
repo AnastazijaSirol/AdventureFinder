@@ -16,9 +16,11 @@
       </div>
     </div>
     <div class="okviri">
-      <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id" class="okvir" @click="prikaziDetalje(destinacija.id)">
-        <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
-        <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
+      <div v-for="destinacija in filtriraneDestinacije" :key="destinacija.id">
+        <div class="okvir" @click="prikaziDetalje(destinacija.id)">
+          <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika">
+          <div class="tekst"><b>{{ destinacija.nazivdestinacije }}, {{ destinacija.drzava }}</b></div>
+        </div>
         <button v-if="isAdmin" class="obrisi-destinaciju-button" @click.stop="obrisiDestinaciju(destinacija.id)">Obriši destinaciju</button>
       </div>
     </div>
