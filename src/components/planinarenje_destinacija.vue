@@ -8,7 +8,7 @@
     <button class="mark-visited-button" :class="{ 'visited': destinacija.posjeceno }" @click="toggleVisited">
       {{ destinacija.posjeceno ? 'Posjećeno ✓' : 'Označi kao posjećeno' }}
     </button>
-    <button v-if="!editing" class="edit-destination-button" @click="toggleEditing">
+    <button v-if="isAdmin" class="edit-destination-button" @click="toggleEditing">
       Uredi destinaciju
     </button>
     <h3 class="aktivnost">Planinarenje</h3>
