@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase'; 
 
 export default {
@@ -53,13 +53,27 @@ export default {
                     slikaBase64: this.slikaBase64,
                     izvor: 'prezivljavanje'
                 };
+
                 const docRef = await addDoc(collection(db, 'destinacije'), destinacijaData);
                 console.log('Document written with ID: ', docRef.id);
-                this.$router.push('planinarenje_stranica');
+
+                const korisniciCollectionRef = collection(db, 'destinacije', docRef.id, 'korisnici');
+
+                const registriraniKorisniciSnapshot = await getDocs(collection(db, 'registrirani'));
+                registriraniKorisniciSnapshot.forEach((doc) => {
+                    const korisnikData = {
+                        email: doc.data().email
+                    };
+
+                    addDoc(korisniciCollectionRef, korisnikData);
+                });
+
+                this.$router.push('prezivljavanje_stranica');
             } catch (error) {
                 console.error('Error adding document: ', error);
             }
         },
+
         usmjeri_natrag() {
             this.$router.push('prezivljavanje_stranica');
         },
