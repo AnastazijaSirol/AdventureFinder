@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { doc, getDoc, getDocs, query, collection, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, query, collection, deleteDoc, setDoc } from 'firebase/firestore';
 import { db, auth } from '@/firebase';
 
 export default {
