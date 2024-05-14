@@ -8,14 +8,27 @@
     <button class="mark-visited-button" :class="{ 'visited': destinacija.posjeceno }" @click="toggleVisited">
       {{ destinacija.posjeceno ? 'Posjećeno ✓' : 'Označi kao posjećeno' }}
     </button>
+    <button v-if="!editing" class="edit-destination-button" @click="toggleEditing">
+      Uredi destinaciju
+    </button>
     <h3 class="aktivnost">Preživljavanje u divljini</h3>
     <img :src="destinacija.slikaBase64" :alt="destinacija.nazivdestinacije" class="slika-destinacije">
     <div class="podaci-destinacije">
-      <p>Vrijeme trajanja: {{ destinacija.vrijemetrajanja }}h</p>
-      <p>Naplata: {{ destinacija.naplata }}€</p>
-      <p>Potrebna oprema: {{ destinacija.potrebnaoprema }}</p>
-      <p>Poveznica za rezervaciju: <a :href="destinacija.poveznicazarezervaciju" target="_blank">{{ destinacija.poveznicazarezervaciju }}</a></p>
+      <p v-if="!editing">Vrijeme trajanja: {{ destinacija.vrijemetrajanja }}h</p>
+      <input v-model="editedDestinacija.vrijemetrajanja" v-if="editing" type="number" placeholder="Vrijeme trajanja (h)">
+      <p v-if="!editing">Naplata: {{ destinacija.naplata }}€</p>
+      <input v-model="editedDestinacija.naplata" v-if="editing" type="number" placeholder="Naplata (€)">
+      <p v-if="!editing">Potrebna oprema: {{ destinacija.potrebnaoprema }}</p>
+      <input v-model="editedDestinacija.potrebnaoprema" v-if="editing" type="text" placeholder="Potrebna oprema">
+      <p v-if="!editing">Poveznica za rezervaciju: <a :href="destinacija.poveznicazarezervaciju" target="_blank">{{ destinacija.poveznicazarezervaciju }}</a></p>
+      <input v-model="editedDestinacija.poveznicazarezervaciju" v-if="editing" type="text" placeholder="Poveznica za rezervaciju">
     </div>
+    <button v-if="editing" class="confirm-edit-button" @click="confirmEdit">
+      Potvrdi promjene
+    </button>
+    <button v-if="editing" class="cancel-edit-button" @click="cancelEdit">
+      Odustani
+    </button>
     <button class="dodaj-recenziju" @click="dodajRecenziju(destinacija.id)">Dodaj recenziju</button>
     <h3 class="naslov-recenzije">Recenzije</h3>
     <select v-model="sortiranjeRecenzija" class="filter-recenzija" @change="sortirajRecenzije">
@@ -32,6 +45,7 @@
       </ul>
       <p v-else class="nema-recenzija">Trenutno nema recenzija za ovu destinaciju.</p>
     </div>
+    <mapa_prikaz></mapa_prikaz>
   </div>
 </template>
 
@@ -45,7 +59,14 @@ export default {
       destinacija: {},
       recenzije: [],
       sortiranjeRecenzija: 'asc',
-      isAdmin: false
+      isAdmin: false,
+      editing: false,
+      editedDestinacija: {
+        vrijemetrajanja: '',
+        naplata: '',
+        potrebnaoprema: '',
+        poveznicazarezervaciju: ''
+      }
     };
   },
   methods: {
@@ -77,6 +98,26 @@ export default {
       } catch (error) {
         console.error('Greška prilikom označavanja destinacije kao posjećene:', error.message);
       }
+    },
+
+    toggleEditing() {
+      this.editing = true;
+      this.editedDestinacija = { ...this.destinacija };
+    },
+
+    async confirmEdit() {
+      try {
+        const destinacijaId = this.$route.params.destinacijaId;
+        await setDoc(doc(db, 'destinacije', destinacijaId), this.editedDestinacija, { merge: true });
+        this.destinacija = { ...this.editedDestinacija };
+        this.editing = false;
+      } catch (error) {
+        console.error('Greška prilikom ažuriranja destinacije:', error.message);
+      }
+    },
+
+    cancelEdit() {
+      this.editing = false;
     },
 
     dodajRecenziju(destinacijaId) {
@@ -133,6 +174,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .navigation {
@@ -257,5 +299,40 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.edit-destination-button, .confirm-edit-button, .cancel-edit-button {
+  padding: 10px 20px;
+  background-color: #D9D9D9;
+  color: #1B1C1B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-destination-button {
+  margin-top: 10px;
+}
+
+.confirm-edit-button, .cancel-edit-button {
+  margin-top: 10px;
+}
+
+.confirm-edit-button {
+  background-color: green;
+  color: white;
+}
+
+.cancel-edit-button {
+  background-color: red;
+  color: white;
+}
+
+input[type="number"], input[type="text"] {
+  width: calc(100% - 22px);
+  margin-top: 5px;
+  padding: 5px 10px;
+  border: 1px solid #D9D9D9;
+  border-radius: 5px;
 }
 </style>
