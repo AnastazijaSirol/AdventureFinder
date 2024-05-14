@@ -7,18 +7,15 @@
     <div class="naslov"><b>Korisnički račun</b></div>
     <div class="informacije">
       <div v-if="currentUser">E-pošta: {{ currentUser.email }}</div>
-      <div>
-        <span> Ažuriranje financija: </span> 
-        <input type="number" v-model="financije" @change="azurirajFinancije" />
-        €
+      <div v-if="isAdmin">
+        <div class="broj_reg">Broj registriranih korisnika: {{ brojRegistriranihKorisnika }}</div>
+        <div class="reg">
+          <h3>Registrirani korisnici</h3>
+          <ul>
+            <li v-for="(korisnik, index) in listaKorisnika" :key="index">{{ korisnik.email }}</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="broj">Broj registriranih korisnika: {{ brojRegistriranihKorisnika }}</div>
-    <div class="reg">
-      <h3>Registrirani korisnici</h3>
-      <ul>
-        <ul v-for="(korisnik, index) in listaKorisnika" :key="index">{{ korisnik.email }}</ul>
-      </ul>
     </div>
     <div class="razgovor">
       <h3>Razmjena poruka</h3>
@@ -44,6 +41,7 @@ export default {
   data() {
     return {
       currentUser: null,
+      isAdmin: false, // Dodano polje za označavanje admina
       financije: localStorage.getItem('financije') || 0,
       brojRegistriranihKorisnika: 0,
       listaKorisnika: [],
@@ -109,11 +107,14 @@ export default {
       if (user) {
         this.currentUser = user;
         await this.ucitajPoruke();
-        await this.ucitajKorisnike();
         const userId = user.uid;
         const userDoc = await getDoc(doc(db, 'registrirani', userId));
         if (userDoc.exists()) {
           this.financije = userDoc.data().financije || 0;
+          this.isAdmin = userDoc.data().isAdmin || false; // Provjera i postavljanje admina
+          if (this.isAdmin) {
+            await this.ucitajKorisnike(); // Učitaj korisnike samo ako je admin
+          }
         }
       } else {
         this.currentUser = null;
@@ -196,7 +197,7 @@ export default {
   color: rgb(25, 242, 254);
 }
 
-.broj {
+.broj_reg {
   background-color: #E0E0E0;
   padding: 10px;
   border-radius: 5px;
@@ -212,6 +213,7 @@ export default {
   border-radius: 5px;
   margin-bottom: 20px;
   width: fit-content;
+  color: #1B1C1B;
   margin: 0 auto 20px auto;
 }
 
