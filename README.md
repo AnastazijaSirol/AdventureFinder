@@ -22,7 +22,7 @@
 7. Označavanje posjećenih destinacija
 8. Pregled i dodavanje recenzija
 9. Sortiranje recenzija
-10. Pregled google karte
+10. Pregled karte
 11. Razmjena poruka s ostalim korisnicima
 12. Ažuriranje financija
 
@@ -36,7 +36,7 @@
 7. Označavanje posjećenih destinacija
 8. Pregled, dodavanje i brisanje recenzija
 9. Sortiranje recenzija
-10. Pregled google karte
+10. Pregled karte
 11. Razmjena poruka s ostalim korisnicima
 12. Ažuriranje financija
 13. Pregled broja i liste registriranih korisnika
