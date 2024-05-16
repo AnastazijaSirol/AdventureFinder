@@ -76,12 +76,13 @@
       position: absolute;
       top: 20px;
       left: 20px;
-      background: none;
+      background-color: #D9D9D9;
+      color: #1B1C1B;
       border: none;
-      color: #D9D9D9;
+      border-radius: 5px;
       cursor: pointer;
-      margin-left: 10px;
-      font-size: 1em;
+      padding: 10px 20px;
+      font-size: 0.8em;
   }
   
   .naslov {
