@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div id="app">
     <h1 class="naslov">AdventureFinder</h1>
