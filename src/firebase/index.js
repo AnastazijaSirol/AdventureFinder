@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
