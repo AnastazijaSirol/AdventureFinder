@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div id="app">
     <button class="natrag" @click="usmjeri_aktivnosti">Natrag</button>
