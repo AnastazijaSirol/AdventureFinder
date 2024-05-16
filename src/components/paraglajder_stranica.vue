@@ -89,6 +89,10 @@ export default {
     },
     async generirajGrafikon() {
       const ctx = document.getElementById('myChart').getContext('2d');
+
+      if (this.myChart) {
+        this.myChart.destroy();
+      }
       
       const countriesData = {};
       this.destinacije.forEach(destinacija => {
@@ -162,6 +166,7 @@ export default {
   async mounted() {
     this.ucitajDestinacije(); 
     this.postaviDimenzijeGrafikona();
+    this.generirajGrafikon();
 
     const korisnikId = auth.currentUser.uid;
     const korisnikRef = doc(db, 'registrirani', korisnikId);
