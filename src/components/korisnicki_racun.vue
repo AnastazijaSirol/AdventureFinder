@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       currentUser: null,
-      isAdmin: false, // Dodano polje za označavanje admina
+      isAdmin: false,
       financije: localStorage.getItem('financije') || 0,
       brojRegistriranihKorisnika: 0,
       listaKorisnika: [],
@@ -74,7 +74,7 @@ export default {
     },
     async ucitajPoruke() {
       const querySnapshot = await getDocs(collection(db, 'poruke'));
-      this.poruke = querySnapshot.docs.map(doc => doc.data());
+      this.poruke = querySnapshot.docs.map(doc => doc.data()).sort((a, b) => b.vrijemeDodavanja - a.vrijemeDodavanja);
     },
     async ucitajKorisnike() {
       try {
@@ -92,8 +92,9 @@ export default {
       }
       const posiljatelj = this.currentUser.email;
       const sadrzaj = this.novaPoruka;
+      const vrijemeDodavanja = new Date(); 
       try {
-        await setDoc(doc(collection(db, 'poruke')), { posiljatelj, sadrzaj });
+        await setDoc(doc(collection(db, 'poruke')), { posiljatelj, sadrzaj, vrijemeDodavanja }); 
         console.log('Poruka je poslana.');
         this.novaPoruka = ''; 
         await this.ucitajPoruke(); 
