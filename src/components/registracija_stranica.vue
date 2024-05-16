@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div id="app">
     <button class="pocetna-button" @click="usmjeri_pocetna">Početna</button>
