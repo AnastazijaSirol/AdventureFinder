@@ -43,3 +43,13 @@
 
 ### Prototip:
 [link na prototip](https://www.figma.com/file/RSFeQReWAodcNinftAICm8/AdventureFinder?type=design&node-id=1%3A2&mode=design&t=MVWFohIzRAXBsqEF-1)
+
+### Javni URL: https://66465ab864a0290a3029f6cb--lively-lebkuchen-a5299d.netlify.app/
+
+### Prijava: 
+#### Korisnik: 
+email: korisnik@gmail.com
+lozinka: 123456
+#### Administrator:
+email: admin@gmail.com
+lozinka: admin123
