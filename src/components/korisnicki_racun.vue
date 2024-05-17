@@ -16,13 +16,6 @@
             <li v-for="(korisnik, index) in listaKorisnika" :key="index">{{ korisnik.email }}</li>
           </ul>
         </div>
-        <!-- Dodan prikaz financija -->
-        <div class="financije">
-          <h3>Financije</h3>
-          <div>Trenutno stanje: {{ financije }} kn</div>
-          <input type="number" v-model="financije" placeholder="Unesite novi iznos..." />
-          <button @click="azurirajFinancije">Ažuriraj financije</button>
-        </div>
       </div>
     </div>
     <div class="razgovor">
@@ -120,9 +113,9 @@ export default {
         const userDoc = await getDoc(doc(db, 'registrirani', userId));
         if (userDoc.exists()) {
           this.financije = userDoc.data().financije || 0;
-          this.isAdmin = userDoc.data().isAdmin || false; // Provjera i postavljanje admina
+          this.isAdmin = userDoc.data().isAdmin || false;
           if (this.isAdmin) {
-            await this.ucitajKorisnike(); // Učitaj korisnike samo ako je admin
+            await this.ucitajKorisnike();
           }
         }
       } else {
@@ -233,31 +226,6 @@ export default {
 
 .reg ul li {
   margin-bottom: 5px;
-}
-
-.financije {
-  background-color: #E0E0E0;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  width: fit-content;
-  color: #1B1C1B;
-  margin: 0 auto 20px auto;
-}
-
-.financije input {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-.financije button {
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 </style>
