@@ -8,9 +8,10 @@
     <div class="naslov"><b>Korisnički račun</b></div>
     <div class="informacije">
       <div v-if="currentUser">E-pošta: {{ currentUser.email }}</div>
-      <span> Ažuriranje financija: </span> 
-        <input type="number" v-model="financije" @change="azurirajFinancije" />
-      €
+      <div class="financije">
+        <span> Ažuriranje financija: </span>
+        <input type="number" v-model="financije" @change="azurirajFinancije" /> €
+      </div>
       <div v-if="isAdmin">
         <div class="broj_reg">Broj registriranih korisnika: {{ brojRegistriranihKorisnika }}</div>
         <div class="reg">
@@ -38,7 +39,7 @@
 
 <script>
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, getDocs, collection, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection, setDoc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '@/firebase';
 
 export default {
@@ -68,7 +69,7 @@ export default {
       }
       try {
         const userId = this.currentUser.uid;
-        await setDoc(doc(db, 'registrirani', userId), {
+        await updateDoc(doc(db, 'registrirani', userId), {
           financije: this.financije
         });
         console.log('Financije su ažurirane.');
@@ -229,6 +230,10 @@ export default {
 
 .reg ul li {
   margin-bottom: 5px;
+}
+
+.informacije .financije {
+  margin-bottom: 20px;
 }
 
 </style>
