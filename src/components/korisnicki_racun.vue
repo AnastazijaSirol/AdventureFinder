@@ -8,9 +8,9 @@
     <div class="naslov"><b>Korisnički račun</b></div>
     <div class="informacije">
       <div v-if="currentUser">E-pošta: {{ currentUser.email }}</div>
-      <span> Ažuriranje financija: </span> 
+      <div class="finan"><span> Ažuriranje financija: </span> 
         <input type="number" v-model="financije" @change="azurirajFinancije" />
-      €
+      €</div>
       <div v-if="isAdmin">
         <div class="broj_reg">Broj registriranih korisnika: {{ brojRegistriranihKorisnika }}</div>
         <div class="reg">
@@ -229,6 +229,10 @@ export default {
 
 .reg ul li {
   margin-bottom: 5px;
+}
+
+.finan {
+  color: white;
 }
 
 </style>
